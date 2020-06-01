@@ -43,15 +43,14 @@ def loginuser(request):
         if user is None:
             return render(request, template,{'form':AuthenticationForm,'error':"the username and the password dint match"})
         else:
-            login(request,user)
+            login(request, user)
             return redirect("results")
 
 
 def logoutuser(request):
     if request.method =="POST":
         logout(request)
-        return redirect('home')
-
+        return redirect("home")
 
 def results(request):
     return render(request,'listings/results.html')

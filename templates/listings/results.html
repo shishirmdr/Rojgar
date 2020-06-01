@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-this is the result page
+{% if user.is_authenticated %}
+  <h1>{{ user.email }}</h1>
+  <form action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+  </form>
+{% endif %}
 {% endblock %}

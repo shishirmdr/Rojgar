@@ -6,12 +6,14 @@ from django.contrib.auth.models import User
 
 
 def home(request):
-    return render(request,"home.html")
+    return render(request,"pages/home.html")
 
 
 def signup(request):
+    template = 'accounts/signup.html'
+
     if request.method == 'GET':
-        return render(request, 'signup.html', {'form': UserCreationForm})
+        return render(request, template, {'form': UserCreationForm})
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
@@ -20,20 +22,22 @@ def signup(request):
                 login(request, user)
                 return redirect('results')
             except IntegrityError:
-                return render(request, 'signup.html',
+                return render(request, template,
                 {'form': UserCreationForm, 'error': 'the username has already been used'})
         else:
-            return render(request, 'signup.html',
+            return render(request, template,
                           {'form': UserCreationForm, 'error': 'the password did not match'})
 
 
 def loginuser(request):
+    template = "accounts/login.html"
+
     if request.method=="GET":
-        return render(request,"login.html",{'form':AuthenticationForm})
+        return render(request,template,{'form':AuthenticationForm})
     else:
         user = authenticate(request,username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request,"login.html",{'form':AuthenticationForm,'error':"the username and the password dint match"})
+            return render(request,template,{'form':AuthenticationForm,'error':"the username and the password dint match"})
         else:
             login(request,user)
             return redirect("results")

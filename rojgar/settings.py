@@ -120,7 +120,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 STATICFILES_DIRS = [
+=======
+STATICFILES_DIR = [
+>>>>>>> dev-anish
     os.path.join(BASE_DIR, 'static')
 ]
 
@@ -133,7 +137,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST =  'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS =True
+<<<<<<< HEAD
 # EMAIL_HOST_USER = 'anishmaharjan1998921@gmail.com'
 EMAIL_HOST_USER = 'sisir.mdr@gmail.com'
+=======
+EMAIL_HOST_USER = 'anishmaharjan1998921@gmail.com'
+# EMAIL_HOST_USER = 'sisir.mdr@gmail.com'
+>>>>>>> dev-anish
 EMAIL_HOST_PASSWORD = 'Django_password'
 

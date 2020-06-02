@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{error}}
+{% if error %}
+<div style="width: 50%;color:white;background-color: red; border-radius: 10px">
+	<div style="padding: 10px 16px;font-size: 1.35rem"><b>{{error}}</b></div>
+</div>
+{% endif %}
+
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}

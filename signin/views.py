@@ -33,6 +33,7 @@ def signup(request):
                           {'form': RegistrationForm, 'error': 'the password did not match'})
 
 
+
 def loginuser(request):
     template = "accounts/login.html"
 
@@ -41,7 +42,7 @@ def loginuser(request):
     else:
         user = authenticate(request,username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, template,{'form':AuthenticationForm,'error':"the username and the password dint match"})
+            return render(request, template,{'form':AuthenticationForm,'error':"the username and the password didn't match"})
         else:
             login(request, user)
             return redirect("results")

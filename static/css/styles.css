@@ -119,3 +119,20 @@ footer.footer {
   padding-bottom: 4rem;
 }
 */
+
+.errormessage{
+  border:0.5px solid white;
+  border-radius: 8px; 
+  width: 100%;
+  background-color: rgba(255,0,0,0.7);
+ 
+}
+
+.errormessagebody{
+  color: white;
+  text-align: center;
+}
+.btn-color{
+  background-color: #008888;
+  color: white;
+}

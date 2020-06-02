@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if error %}
-<div style="width: 50%;color:white;background-color: red; border-radius: 10px">
-	<div style="padding: 10px 16px;font-size: 1.35rem"><b>{{error}}</b></div>
+<div class="container">
+	{% if error %}
+		<div class="errormessage">
+			<div class="errormessagebody"> 
+				<b><h4>Error</h4>
+				{{error}}</b>
+			</div>
+		</div>
+	{% endif %}
+	<h2>Sign Up</h2>
+	<p>Already have an account? <a href="/login">Log In</a></p>
+	<form method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<button class="btn btn-color" type="submit">Sign Up</button>
+	</form>
 </div>
-{% endif %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">sign up</button>
-</form>
 {% endblock %}

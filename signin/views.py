@@ -16,21 +16,26 @@ def signup(request):
     if request.method == 'GET':
         return render(request, template, {'form': RegistrationForm})
     else:
-        if request.POST['password1'] == request.POST['password2']:
-            try:
-                user = User.objects.create_user(request.POST['username'],
-                        password=request.POST['password1'],
-                        email=request.POST['email'],
-                        first_name=request.POST['first_name'],last_name= request.POST['last_name'])
-                user.save()
-                login(request, user)
-                return redirect('results')
-            except IntegrityError:
+        try:
+            if request.POST['password1'] == request.POST['password2']:
+                try:
+                    user = User.objects.create_user(request.POST['username'],
+                            password=request.POST['password1'],
+                            email=request.POST['email'],
+                            first_name=request.POST['first_name'],last_name= request.POST['last_name'])
+                    user.save()
+                    login(request, user)
+                    return redirect('results')
+                except IntegrityError:
+                    return render(request, template,
+                                  {'form': RegistrationForm, 'error': 'The username has already been used'})
+            else:
                 return render(request, template,
-                              {'form': RegistrationForm, 'error': 'The username has already been used.'})
-        else:
+                              {'form': RegistrationForm, 'error': 'The password did not match'})
+        except ValueError:
             return render(request, template,
-                          {'form': RegistrationForm, 'error': 'The passwords did not match.'})
+                          {'form': RegistrationForm, 'error': 'Please enter valid data'})
+
 
 
 

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul>
+    {% for worker in page_obj %}
+      <li>{{ worker.user.email }}</li>
+    {% endfor %}
+  </ul>
+
+  {% include "listings/pagination.html" %}
+
+{% endblock %}

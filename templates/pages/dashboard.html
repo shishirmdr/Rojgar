@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
   <h1>{{ user.email }}</h1>
   <form action="{% url 'logout' %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="Logout">
   </form>
-{% endif %}
+
+  <p>Update your profile to open up yourself to the world!</p>
+  <a href="{% url 'profile' %}">Update Profile</a>
+  <h3>Active: {{ user.profile.available_for_hire }}</h3>
 {% endblock %}

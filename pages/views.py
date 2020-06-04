@@ -1,8 +1,7 @@
-from itertools import chain
 from taggit.models import Tag
-from django.db.models import Q
 from django.views import View
 from signin.models import Profile
+from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from signin.forms import CustomUserChangeForm, ProfileForm
@@ -61,7 +60,7 @@ class ProfileView(LoginRequiredMixin, View):
 
 
 class SearchResultsView(View):
-    template_name = 'pages/search-results.html'
+    template_name = 'listings/search_results.html'
 
     def get(self, request, *args, **kwargs):
         query = request.GET.get('q')
@@ -71,3 +70,37 @@ class SearchResultsView(View):
                                          skills=search_item)
 
         return render(request, self.template_name, {'results': results})
+
+
+class CategoryListView(View):
+    queryset = Tag.objects.all()
+    template_name = 'listings/category_list.html'
+
+    def get(self, request, *args, **kwargs):
+        paginator = Paginator(self.queryset, 2)
+        page_no = request.GET.get('page')
+        page_obj = paginator.get_page(page_no)
+
+        return render(request, self.template_name, {
+            'page_obj': page_obj
+        })
+
+
+class CategoryDetailsView(View):
+    template_name = 'listings/category_details.html'
+
+    def get(self, request, slug, *args, **kwargs):
+        category = get_object_or_404(Tag, slug=slug)
+        queryset = Profile.objects.filter(available_for_hire=True,
+                                          skills=category)
+
+        paginator = Paginator(queryset, 2)
+        page_no = request.GET.get('page')
+        page_obj = paginator.get_page(page_no)
+
+        return render(request, self.template_name, {
+            'page_obj': page_obj
+        })
+
+
+

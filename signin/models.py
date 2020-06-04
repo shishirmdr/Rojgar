@@ -13,7 +13,8 @@ class Profile(models.Model):
         ("F","Female"),
         ("O","Other"),
     )
-    gender = models.CharField(max_length=13, choices=gender_choices, blank=True, default='')
+    gender = models.CharField(max_length=13, choices=gender_choices, blank=True,
+                              default='')
 
     education = models.CharField(max_length=24, blank=True, default='')
     skills = TaggableManager(verbose_name='skills', blank=True)

@@ -28,10 +28,10 @@ def signup(request):
                     return redirect('results')
                 except IntegrityError:
                     return render(request, template,
-                                  {'form': RegistrationForm, 'error': 'the username has already been used'})
+                                  {'form': RegistrationForm, 'error': 'The username has already been used'})
             else:
                 return render(request, template,
-                              {'form': RegistrationForm, 'error': 'the password did not match'})
+                              {'form': RegistrationForm, 'error': 'The password did not match'})
         except ValueError:
             return render(request, template,
                           {'form': RegistrationForm, 'error': 'Please enter valid data'})
@@ -46,7 +46,7 @@ def loginuser(request):
     else:
         user = authenticate(request,username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, template,{'form':AuthenticationForm,'error':"the username and the password didn't match"})
+            return render(request, template,{'form':AuthenticationForm,'error':"The username and the password did not match"})
         else:
             login(request, user)
             return redirect("results")

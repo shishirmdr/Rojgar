@@ -11,4 +11,6 @@ urlpatterns = [
 
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('public/<int:pk>/', views.PublicProfileView.as_view(),
+         name='public_profile')
 ]

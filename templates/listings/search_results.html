@@ -5,7 +5,8 @@
   <ul>
     {% if page_obj %}
       {% for result in page_obj %}
-        <li>{{ result.user.email }}</li>
+        <!-- use result.user.profile to get access to profile fields -->
+        <li><a href="{% url 'public_profile' result.user.id %}">{{ result.user.username }}</a></li>
       {% endfor %}
     {% else %}
       <p>Not found!</p>

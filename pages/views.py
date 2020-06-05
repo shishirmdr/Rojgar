@@ -71,7 +71,12 @@ class SearchResultsView(View):
         #                                   skills=search_item)
 
         search_items = request.GET.get('q').lower().replace(' ','').split(',')
-        queryset = Profile.objects.filter(skills__name__in=search_items).distinct()
+
+        user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
+        queryset = user_excluded_queryset.filter(
+            available_for_hire=True,
+            skills__name__in=search_items
+        ).distinct()
 
         paginator = Paginator(queryset, 2)
         page_no = request.GET.get('page')
@@ -101,7 +106,8 @@ class CategoryDetailsView(View):
 
     def get(self, request, slug, *args, **kwargs):
         category = get_object_or_404(Tag, slug=slug)
-        queryset = Profile.objects.filter(available_for_hire=True,
+        user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
+        queryset = user_excluded_queryset.filter(available_for_hire=True,
                                           skills=category)
 
         paginator = Paginator(queryset, 2)
@@ -113,4 +119,12 @@ class CategoryDetailsView(View):
         })
 
 
+class PublicProfileView(View):
+    template_name = 'pages/public_profile.html'
 
+    def get(self, request, pk, *args, **kwargs):
+        user = get_object_or_404(User, id=pk)
+
+        return render(request, self.template_name, {
+            'profile': user.profile
+        })

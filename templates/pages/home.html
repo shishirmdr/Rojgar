@@ -1,66 +1,135 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-	<main role="main">
-		<header class="masthead text-white text-center">
-			<div class="overlay"></div>
+<main role="main">
+    <header class="masthead text-white text-center">
+        <div class="overlay"></div>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-5">Find The Perfect Freelance Services For Your Business</h1>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <form method="GET" action="/search">
+                        <div class="form-row">
+                            <div class="col-12 col-md-9 mb-2 mb-md-0">
+                                <input type="text" name="q" class="form-control form-control-lg"
+                                       placeholder="Search for a service...">
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <button type="submit" class="btn btn-block btn-lg btn-info">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            {% if not user.is_authenticated %}
+
+            <div class="or"><b>OR</b></div>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-5">Join Our Community To Make Money From Home <a href="{% url 'signup' %}"
+                                                                                   class="btn btn-lg btn-success">Join
+                        Us Now &raquo;</a></h1>
+                </div>
+            </div>
+
+            {% endif %}
+        </div>
+    </header>
+
+	<div class="service">
+		<!--our services section-->
+		<section class="page-section" id="services">
 			<div class="container">
-				
-				<div class="row">
-					<div class="col-xl-9 mx-auto">
-						<h1 class="mb-5">Find The Perfect Freelance Services For Your Business</h1>
-					</div>
-					<div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-						<form method="GET" action="/search">
-							<div class="form-row">
-								<div class="col-12 col-md-9 mb-2 mb-md-0">
-									<input type="text" name="q" class="form-control form-control-lg" placeholder="Search for a service...">
-								</div>
-								<div class="col-12 col-md-3">
-									<button type="submit" class="btn btn-block btn-lg btn-info">Search</button>
-								</div>
-							</div>
-						</form>
-					</div>
+				<div class="text-center">
+					<h2 class="section-heading text-uppercase">Services</h2>
+					<h3 class="section-subheading text-muted">We've got you covered for all your business needs.</h3>
 				</div>
-
-				{% if not user.is_authenticated %}
-				
-					<div class="or"><b>OR</b></div>
-					<div class="divider"></div>
-					<div class="row">
-						<div class="col-xl-9 mx-auto">
-							<h1 class="mb-5">Join Our Community To Make Money From Home <a href="{% url 'signup' %}" class="btn btn-lg btn-success">Join Us Now &raquo;</a></h1>
-						</div>
+				<div class="row text-center">
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"><img src="{% static 'images/freelance.png' %}"></span>
+						<h4 class="my-3">Find Freelance Service</h4>
+						<p class="text-muted">Find freelance services for your business easily. </p>
 					</div>
-					
-				{% endif %}
-			</div>
-		</header>
-
-		<div class="container mt-4">
-			<!-- Example row of columns -->
-			<div class="row">
-				<div class="col-md-4">
-					<h2>Heading</h2>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-					<p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-				</div>
-				<div class="col-md-4">
-					<h2>Heading</h2>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-					<p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-				</div>
-				<div class="col-md-4">
-					<h2>Heading</h2>
-					<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-					<p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"><img src="{% static 'images/sell.png' %}"></span>
+						<h4 class="my-3">Become A Worker</h4>
+						<p class="text-muted">Introduce yourself into the freelance market.</p>
+					</div>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"><img src="{% static 'images/remotework.png' %}"></span>
+						<h4 class="my-3">Remote Work</h4>
+						<p class="text-muted">Work remotely from anywhere.</p>
+					</div>
 				</div>
 			</div>
+		</section>
+	</div>
+    <div class="service" align="center">
+       <span class="fa-stack fa-4x"><img src="{% static 'images/arrow.png' %}"></span>
+    </div>
+	<div class="service1">
+		<!--how it works section-->
+		<section class="page-section" id="services">
+			<div class="container">
+				<div class="text-center">
+					<h2 class="section-heading text-uppercase">Want To Become A Worker?</h2>
+					<h3 class="section-subheading text-muted">How It Works?</h3>
+				</div>
+				<div class="row text-center">
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"><img src="{% static 'images/profile.png' %}"></span>
+						<h4 class="my-3">1. Set up your profile</h4>
+						<p class="text-muted">Sign up for free, and create your profile.</p>
+					</div>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"><img src="{% static 'images/deliver.png' %}"></span>
+						<h4 class="my-3">2. Deliver your work</h4>
+						<p class="text-muted">Once you get hired, you can discuss the details with
+							customers.</p>
+					</div>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x"><img src="{% static 'images/paid.png' %}"></span>
+						<h4 class="my-3">3. Get paid</h4>
+						<p class="text-muted">Payment is transferred to you upon work completion.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+    <div class="container mt-4">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Heading</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                    mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Heading</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                    mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                    ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div>
+        </div>
 
-			<hr>
+        <hr>
 
-		</div> <!-- /container -->
+    </div> <!-- /container -->
 
-	</main>
+</main>
 {% endblock content %}

@@ -5,15 +5,7 @@
 		<header class="masthead text-white text-center">
 			<div class="overlay"></div>
 			<div class="container">
-				{% if not user.is_authenticated %}
-					<div class="row">
-						<div class="col-xl-9 mx-auto">
-							<h1 class="mb-5">Join Our Community To Make Money From Home <a href="{% url 'signup' %}" class="btn btn-lg btn-success">Join Us Now &raquo;</a></h1>
-						</div>
-					</div>
-					<div class="or"><b>OR</b></div>
-					<div class="divider"></div>
-				{% endif %}
+				
 				<div class="row">
 					<div class="col-xl-9 mx-auto">
 						<h1 class="mb-5">Find The Perfect Freelance Services For Your Business</h1>
@@ -31,6 +23,18 @@
 						</form>
 					</div>
 				</div>
+
+				{% if not user.is_authenticated %}
+				
+					<div class="or"><b>OR</b></div>
+					<div class="divider"></div>
+					<div class="row">
+						<div class="col-xl-9 mx-auto">
+							<h1 class="mb-5">Join Our Community To Make Money From Home <a href="{% url 'signup' %}" class="btn btn-lg btn-success">Join Us Now &raquo;</a></h1>
+						</div>
+					</div>
+					
+				{% endif %}
 			</div>
 		</header>
 

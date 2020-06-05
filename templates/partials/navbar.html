@@ -9,21 +9,13 @@
 
     <div class="collapse navbar-collapse" id="navbarsExample04">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Job Categories</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-          <li class="nav-item">
-          {# <a class="nav-link" href="{% url 'seller' %}">Become a Seller</a> #}
-        </li>
+        <li>
+          <a class="nav-link" href="http://example.com" aria-haspopup="true" aria-expanded="false"></a>
         </li>
       </ul>
       {% if user.is_authenticated %}
         <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+          <a class="nav-link dropdown-toggle text-white" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
             <a class="dropdown-item" href="{% url 'dashboard' %}">Profile</a>
             <a class="dropdown-item" href="#">
@@ -34,10 +26,8 @@
             </a>
           </div>
         </div>
-        <a class="nav-item nav-link text-white mr-md-2" href="">My Orders</a>
-        <a class="btn btn-info" href="">My Jobs</a>
       {% else %}
-         <a class="nav-item nav-link text-white" href="{% url 'login' %}">Login</a>
+        <a class="nav-item nav-link text-white" href="{% url 'login' %}">Login</a>
         <a type="button" class="btn btn-info" href="{% url 'signup' %}">Sign Up</a>
       {% endif %}
     </div>

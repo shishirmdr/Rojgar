@@ -59,7 +59,7 @@ header.masthead h1 {
 
 .or{
   position: relative;
-  top:10px;
+  top:4rem;
 
 }
 .or b{
@@ -71,7 +71,7 @@ header.masthead h1 {
 .divider{
   height: 3px;
   background-color: white;
-  margin-bottom: 3rem;
+  margin: 3rem ;
   border-radius: 3px;
 }
 

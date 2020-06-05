@@ -1,10 +1,8 @@
-from django.views import View
+from .forms import RegistrationForm
 from django.db import IntegrityError
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate, logout
-from .forms import RegistrationForm, ProfileForm, CustomUserChangeForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 

@@ -1,3 +1,7 @@
+a {
+    outline: 0;
+}
+
 header.masthead {
   position: relative;
   @include background-cover;

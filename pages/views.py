@@ -41,7 +41,8 @@ class ProfileView(LoginRequiredMixin, View):
         user_change_form = self.user_change_form_class(request.POST,
                                                        instance=request.user)
         user_profile_form = self.user_profile_form_class(
-            request.POST, instance=request.user.profile)
+            request.POST, instance=request.user.profile
+        )
 
         if user_change_form.is_valid() and user_profile_form.is_valid():
             update_user_changes = user_change_form.save()
@@ -63,13 +64,22 @@ class SearchResultsView(View):
     template_name = 'listings/search_results.html'
 
     def get(self, request, *args, **kwargs):
-        query = request.GET.get('q')
+        # query = request.GET.get('q')
+        #
+        # search_item = get_object_or_404(Tag, slug=query)
+        # queryset = Profile.objects.filter(available_for_hire=True,
+        #                                   skills=search_item)
 
-        search_item = get_object_or_404(Tag, slug=query)
-        results = Profile.objects.filter(available_for_hire=True,
-                                         skills=search_item)
+        search_items = request.GET.get('q').lower().replace(' ','').split(',')
+        queryset = Profile.objects.filter(skills__name__in=search_items).distinct()
 
-        return render(request, self.template_name, {'results': results})
+        paginator = Paginator(queryset, 2)
+        page_no = request.GET.get('page')
+        page_obj = paginator.get_page(page_no)
+
+        return render(request, self.template_name, {
+            'page_obj': page_obj
+        })
 
 
 class CategoryListView(View):

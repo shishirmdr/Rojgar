@@ -9,5 +9,6 @@
 
   <p>Update your profile to open up yourself to the world!</p>
   <a href="{% url 'profile' %}">Update Profile</a>
+  <p><a href="{% url 'public_profile' user.id %}">Public Profile</a></p>
   <h3>Active: {{ user.profile.available_for_hire }}</h3>
 {% endblock %}

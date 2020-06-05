@@ -25,7 +25,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('available_for_hire', 'occupation', 'gender', 'education',
-                  'skills', 'website',)
+                  'skills', 'description','website',)
 
 
 

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Search results for <i>{{ request.GET.q }}</i></h1>
+  <ul>
+    {% if page_obj %}
+      {% for result in page_obj %}
+        <!-- use result.user.profile to get access to profile fields -->
+        <li><a href="{% url 'public_profile' result.user.id %}">{{ result.user.username }}</a></li>
+      {% endfor %}
+    {% else %}
+      <p>Not found!</p>
+    {% endif %}
+  </ul>
+
+  {% include "listings/pagination.html" %}
+{% endblock %}

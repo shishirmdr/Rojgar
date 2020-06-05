@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third-party
+    'taggit',
     # new
-    'signin.apps.SigninConfig'
+    'signin.apps.SigninConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,5 @@ EMAIL_USE_TLS =True
 EMAIL_HOST_USER = 'anishmaharjan1998921@gmail.com'
 EMAIL_HOST_PASSWORD = 'Django_password'
 
+
+PHONENUMBER_DEFAULT_REGION = 'NP'

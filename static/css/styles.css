@@ -1,3 +1,4 @@
+
 header.masthead {
   position: relative;
   @include background-cover;
@@ -72,4 +73,16 @@ header.masthead h1 {
   background-color: white;
   margin: 3rem ;
   border-radius: 3px;
+}
+
+a {
+    outline: 0;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+*:focus {
+    outline: none;
 }

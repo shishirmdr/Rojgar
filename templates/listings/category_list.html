@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>All Categories</h1>
+  <ul>
+    {% for category in page_obj %}
+      <li><a href="{% url 'category-details' category.slug %}">{{ category.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  {% include "listings/pagination.html" %}
+{% endblock %}

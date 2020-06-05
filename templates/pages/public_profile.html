@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ profile.user.username }}'s profile</h1>
+    {% if profile.user.email %}<p>Email: {{ profile.user.email }}</p>{% endif %}
+    <p>Available of hire: {% if profile.available_for_hire %}Yes{% else %}No{% endif%}</p>
+
+    {% if profile.education %}<p>Education: {{ profile.education }}</p>{% endif %}
+
+    {% if profile.occupation %}<p>Occupation: {{ profile.occupation }}</p>{% endif %}
+
+    {% if profile.website %}<p>Personal Website: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %}
+
+    <p>Joined: {{ profile.user.date_joined.date }}</p>
+
+    {% if profile.skills %}
+      <p>Tags</p>
+      <ul>
+        {% for skill in profile.skills.all %}
+          <li><a href="{% url 'category-details' skill.slug %}">{{ skill }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+{% endblock %}

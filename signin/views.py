@@ -1,13 +1,11 @@
-from django.contrib.auth import login, authenticate, logout
-from django.db import IntegrityError
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from django.contrib.auth.models import User
 from .forms import RegistrationForm
+from django.db import IntegrityError
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.decorators import login_required
 
-
-def home(request):
-    return render(request,"pages/home.html")
 
 
 def signup(request):
@@ -21,11 +19,11 @@ def signup(request):
                 try:
                     user = User.objects.create_user(request.POST['username'],
                             password=request.POST['password1'],
-                            email=request.POST['email'],
-                            first_name=request.POST['first_name'],last_name= request.POST['last_name'])
+                            email=request.POST['email'])
+                            # first_name=request.POST['first_name'],last_name= request.POST['last_name'])
                     user.save()
                     login(request, user)
-                    return redirect('results')
+                    return redirect('dashboard')
                 except IntegrityError:
                     return render(request, template,
                                   {'form': RegistrationForm, 'error': 'The username has already been used'})
@@ -33,10 +31,8 @@ def signup(request):
                 return render(request, template,
                               {'form': RegistrationForm, 'error': 'The password did not match'})
         except ValueError:
-            return render(request, template,
-                          {'form': RegistrationForm, 'error': 'Please enter valid data'})
-
-
+            return render(request, template, {'form': RegistrationForm,
+                                              'error': 'Please enter valid data'})
 
 def loginuser(request):
     template = "accounts/login.html"
@@ -44,20 +40,24 @@ def loginuser(request):
     if request.method=="GET":
         return render(request, template,{'form':AuthenticationForm})
     else:
-        user = authenticate(request,username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(request,username=request.POST['username'],
+                            password=request.POST['password'])
         if user is None:
-            return render(request, template,{'form':AuthenticationForm,'error':"The username and the password did not match"})
+            return render(request, template, {
+                'form':AuthenticationForm,
+                'error':"the username and the password didn't match"
+            })
         else:
             login(request, user)
-            return redirect("results")
+
+            if "next" in request.GET:
+                return redirect(request.GET['next'])
+            return redirect("dashboard")
 
 
+@login_required
 def logoutuser(request):
     if request.method =="POST":
         logout(request)
-        return redirect("home")
 
-def results(request):
-    return render(request,'listings/results.html')
-
-
+    return redirect('home')

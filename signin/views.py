@@ -25,11 +25,11 @@ def signup(request):
                     login(request, user)
                     return redirect('dashboard')
                 except IntegrityError:
-                    return render(request, template, {'form': RegistrationForm,
-                                                      'error': 'the username has already been used'})
+                    return render(request, template,
+                                  {'form': RegistrationForm, 'error': 'The username has already been used'})
             else:
-                return render(request, template, {'form': RegistrationForm,
-                                                  'error': 'the password did not match'})
+                return render(request, template,
+                              {'form': RegistrationForm, 'error': 'The password did not match'})
         except ValueError:
             return render(request, template, {'form': RegistrationForm,
                                               'error': 'Please enter valid data'})

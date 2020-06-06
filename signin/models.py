@@ -23,3 +23,18 @@ class Profile(models.Model):
     joined_at = models.DateTimeField(auto_now_add=True)
 
 
+class Hiree(models.Model):
+    hirees = models.ManyToManyField(User)
+    hirer = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+                                     related_name='hirer')
+
+    @classmethod
+    def hire(_class, hirer, new_hiree):
+        _hirer, created = _class.objects.get_or_create(hirer=hirer)
+        _hirer.hirees.add(new_hiree)
+
+    @classmethod
+    def free(_class, hirer, new_hiree):
+        _hirer, created = _class.objects.get_or_create(hirer=hirer)
+        _hirer.hirees.remove(new_hiree)
+

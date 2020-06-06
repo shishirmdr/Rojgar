@@ -1,6 +1,6 @@
 from taggit.models import Tag
 from django.views import View
-from signin.models import Profile
+from signin.models import Profile, Hiree
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,7 +16,13 @@ class DashboardView(LoginRequiredMixin, View):
     template_name = 'pages/dashboard.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        incomings = Hiree.objects.get(hirer=request.user).hirees.all()
+        outgoings = Hiree.objects.filter(hirees=request.user)
+
+        return render(request, self.template_name, {
+            'incomings': incomings,
+            'outgoings': outgoings,
+        })
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -76,7 +82,7 @@ class SearchResultsView(View):
         queryset = user_excluded_queryset.filter(
             available_for_hire=True,
             skills__name__in=search_items
-        ).distinct()
+        ).order_by('user__date_joined').distinct()
 
         paginator = Paginator(queryset, 3)
         page_no = request.GET.get('page')
@@ -125,6 +131,27 @@ class PublicProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         user = get_object_or_404(User, id=pk)
 
+        involved = False
+        if request.user.is_authenticated:
+            incomings = Hiree.objects.get(hirer=request.user).hirees.all()
+            outgoings = Hiree.objects.filter(hirees=request.user)
+
+            involved = any([
+                incomings.filter(id=pk).exists(),
+                outgoings.filter(hirer_id=pk).exists()
+            ])
+
         return render(request, self.template_name, {
-            'profile': user.profile
+            'profile': user.profile,
+            'involved': involved
         })
+
+class UserActionView(LoginRequiredMixin,View):
+    def post(self, request, pk, action, *args, **kwargs):
+        new_hire = get_object_or_404(User, id=pk)
+        if action == 'hire':
+            Hiree.hire(request.user, new_hire)
+        else:
+            Hiree.free(request.user, new_hire)
+
+        return redirect('dashboard')

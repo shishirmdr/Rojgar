@@ -11,4 +11,31 @@
   <a href="{% url 'profile' %}">Update Profile</a>
   <p><a href="{% url 'public_profile' user.id %}">Public Profile</a></p>
   <h3>Active: {{ user.profile.available_for_hire }}</h3>
+
+  <h1>Transactions</h1>
+  <h3>Incoming</h3>
+  {% if incomings %}
+    <ul>
+      {% for item in incomings %}
+        <li> <a href="{% url 'public_profile' item.id %}">{{ item.username }}</a> </li>
+        <form action="{% url 'user-action' item.id 'free' %}" method="POST">
+          {% csrf_token %}
+          <button type="submit"> Free </button>
+        </form>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no current incoming transactions.</p>
+  {% endif %}
+
+  <h3>Outgoing</h3>
+  {% if outgoings %}
+    <ul>
+      {% for item in outgoings %}
+        <li><a href="{% url 'public_profile' item.hirer.id %}">{{ item.hirer.username }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no current outgoing transactions.</p>
+  {% endif %}
 {% endblock %}

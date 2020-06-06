@@ -11,6 +11,10 @@
 
     {% if profile.website %}<p>Personal Website: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %}
 
+    {% if profile.description %}
+      <label>Description</label>
+      <p>{{ profile.description }}</p>
+    {% endif %}
     <p>Joined: {{ profile.user.date_joined.date }}</p>
 
     {% if profile.skills %}

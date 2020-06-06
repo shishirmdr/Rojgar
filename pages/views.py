@@ -147,7 +147,10 @@ class PublicProfileView(View):
         })
 
 class UserActionView(LoginRequiredMixin,View):
-    def post(self, request, pk, action, *args, **kwargs):
+    def get(self, request, pk, action):
+        return redirect('public_profile', pk=pk)
+
+    def post(self, request, pk, action):
         new_hire = get_object_or_404(User, id=pk)
         if action == 'hire':
             Hiree.hire(request.user, new_hire)

@@ -31,12 +31,12 @@
                     <span class="sml-text">{{ result.user.profile.occupation }}</span>
                   </div>
                 </div>
-                
+
                 <p class="card-text sml-text">{{ result.user.profile.description }}</p>
               </div>
               <hr/>
               <div>
-                <a href="{% url 'public_profile' result.user.id %}" class="btn btn-info">Hire Me</a>
+                <a href="{% url 'public_profile' result.user.id %}" class="btn btn-info">View Profile</a>
               </div>
             </div>
           </div>
@@ -47,6 +47,6 @@
   {% else %}
     <h1 class="display-3 text-muted notfound">No Result Found!</h1>
   {% endif %}
-  
+
 
 {% endblock %}

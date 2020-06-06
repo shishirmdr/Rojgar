@@ -1,17 +1,79 @@
 {% extends 'base.html' %}
 {% block content %}
-  {% if user.is_authenticated %}
-    <h1>Profile Page</h1>
-    <form method="post">
-      {% csrf_token %}
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-header">
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-5 p-0">
+                    <h2>Profile Page</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-left mt-4">
+                <div class="col-md-5 ml-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_username">Username</label>
+                            <input type="text" name="username" class="form-control" id="id_username">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_first_name">First name</label>
+                            <input type="text" name="first_name" class="form-control" id="id_first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">Last name</label>
+                            <input type="text" name="last_name" class="form-control" id="id_last_name">
+                        </div>
+                        <div class="form-group">
+                            <p>Available for hire :
+                                <input class="p-3 " type="checkbox" name="available_for_hire" class="form-control"
+                                       id="id_available_for_hire">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_occupation">Occupation</label>
+                            <input type="text" name="occupation" class="form-control" id="id_occupation">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_gender">Gender</label>
+                            <select name="gender" class="form-control" id="id_gender">
+                                <option value="M"> Male</option>
+                                <option value="F"> Female</option>
+                                <option value="O"> Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_education">Education</label>
+                            <input type="text" name="education" class="form-control" id="id_education">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_skills">Skills</label>
+                            <input type="text" name="skills" class="form-control" id="id_skills">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_description">Description</label>
+                            <textarea name="description" class="form-control" id="id_description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_website">Website</label>
+                            <input type="url" name="website" class="form-control" id="id_website">
+                        </div>
+                        <button type="submit" value="update" class="btn btn-primary">update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-      {{ user_form.as_p }}
-      {{ profile_form.as_p }}
-      <input type="submit" value="update">
-    </form>
-  {% else %}
-    <h1>Forbidden!</h1>
-  {% endif %}
+{% else %}
+<h1>Forbidden!</h1>
+{% endif %}
+
+
 {% endblock %}
 
 

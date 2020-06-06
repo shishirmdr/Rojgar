@@ -84,7 +84,7 @@ class SearchResultsView(View):
             skills__name__in=search_items
         ).order_by('user__date_joined').distinct()
 
-        paginator = Paginator(queryset, 2)
+        paginator = Paginator(queryset, 3)
         page_no = request.GET.get('page')
         page_obj = paginator.get_page(page_no)
 
@@ -98,7 +98,7 @@ class CategoryListView(View):
     template_name = 'listings/category_list.html'
 
     def get(self, request, *args, **kwargs):
-        paginator = Paginator(self.queryset, 2)
+        paginator = Paginator(self.queryset, 12)
         page_no = request.GET.get('page')
         page_obj = paginator.get_page(page_no)
 
@@ -116,7 +116,7 @@ class CategoryDetailsView(View):
         queryset = user_excluded_queryset.filter(available_for_hire=True,
                                           skills=category)
 
-        paginator = Paginator(queryset, 2)
+        paginator = Paginator(queryset, 10)
         page_no = request.GET.get('page')
         page_obj = paginator.get_page(page_no)
 

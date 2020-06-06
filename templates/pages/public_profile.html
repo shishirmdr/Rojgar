@@ -1,37 +1,99 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ profile.user.username }}'s profile</h1>
-    {% if profile.user.email %}<p>Email: {{ profile.user.email }}</p>{% endif %}
-    <p>Available of hire: {% if profile.available_for_hire %}Yes{% else %}No{% endif%}</p>
+<div class="container p-5">
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ profile.user.username }}'s Profile</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-5 col-12 col-sm-6 col-xl-4">
+                    <img alt="User Pic"
+                         src="https://images.herzindagi.info/image/2020/Feb/sunny-leone-shares-beauty-secrets-m.jpg"
+                         id="profile-image1" class="rounded-circle img-fluid p-auto">
+                </div>
 
-    {% if profile.education %}<p>Education: {{ profile.education }}</p>{% endif %}
+                <div class="col-lg-9 col-12 col-sm-6 col-xl-8">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h2>{{ profile.user.username }}</h2>
+                                <p><b> occupation : </b>
+                                    {% if profile.occupation %}
+                                    {{ profile.occupation }}
+                                    {% else %}
+                                    <i class="fas fa-times-circle" style="color:red; width=30px;"></i>
+                                    {% endif %}
+                                <p>
+                                    {% if profile.description %}
+                                    {{profile.description}}
+                                    {% endif %}
+                                </p>
+                                </p>
+                            </div>
+                            <div class="col-lg-9 col-12 col-sm-6 col-xl-5 m-3">
+                                <button class="btn btn-primary btn-lg p-2"> Hire Worker</button>
+                            </div>
 
-    {% if profile.occupation %}<p>Occupation: {{ profile.occupation }}</p>{% endif %}
+                        </div>
 
-    {% if profile.website %}<p>Personal Website: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %}
 
-    {% if profile.description %}
-      <label>Description</label>
-      <p>{{ profile.description }}</p>
-    {% endif %}
-    <p>Joined: {{ profile.user.date_joined.date }}</p>
+                    </div>
+                    <hr>
+                    <ul class="container details" style="list-style-type:none;">
+                        <li>
+                            <p><i class="fas fa-envelope" style="width:30px; color:#48b4e0"></i>
+                                {% if profile.user.email %}
+                                {{ profile.user.email }}
+                                {% else %}
+                                <i class="fas fa-times-circle" style="color:red; width=30px;"></i>
+                                {% endif %}
+                            </p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-user-graduate" style="width:30px; color: #48b4e0"></i>
+                                {% if profile.education %}
+                                {{ profile.education }}
+                                {% else %}
+                                <i class="fas fa-times-circle" style="color:red; width=30px;"></i>
+                                {% endif %}
+                            </p>
+                        </li>
+                        <li>
+                            <p><i class="fas fa-globe" style="width:30px; color:#48b4e0"></i>
+                                {% if profile.website %}
+                                <a href="{{ profile.website }}">
+                                    {{ profile.website }}</a>
+                                {% else %}
+                                <i class="fas fa-times-circle" style="color:red; width=30px;"></i>
+                                {% endif %}
+                            </p>
+                        </li>
+                        <li>
+                            <p><b>Available for hire : </b>
+                                {% if profile.available_for_hire %}
+                                <i class="fas fa-check" style="color:green"></i>
+                                {% else %}
+                                <i class="fas fa-times" style="color:red"></i>
+                                {% endif%}
+                            </p>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="col-md-5 col-6 tital ">Date Of Joining: {{ profile.user.date_joined.date }}
+                        <p> {% if profile.skills %}
+                        <p>Tags :
+                            {% for skill in profile.skills.all %}
+                            <a href="{% url 'category-details' skill.slug %}">{{ skill }}</a>,
+                            {% endfor %}
+                        </p>
+                        {% endif %}</p></div>
 
-    {% if profile.skills %}
-      <p>Tags</p>
-      <ul>
-        {% for skill in profile.skills.all %}
-          <li><a href="{% url 'category-details' skill.slug %}">{{ skill }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {% if user.id != profile.user.id %}
-      <form action="{% url 'user-action' profile.user.id 'hire' %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" {% if involved %}disabled{% endif %}>
-          Hire
-        </button>
-      </form>
-    {% endif %}
+</div>
 {% endblock %}

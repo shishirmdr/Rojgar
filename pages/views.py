@@ -16,7 +16,10 @@ class DashboardView(LoginRequiredMixin, View):
     template_name = 'pages/dashboard.html'
 
     def get(self, request, *args, **kwargs):
-        incomings = Hiree.objects.get(hirer=request.user).hirees.all()
+        incomings = []
+        if Hiree.objects.filter(hirer_id=request.user.id).exists():
+            incomings = Hiree.objects.get(hirer=request.user).hirees.all()
+
         outgoings = Hiree.objects.filter(hirees=request.user)
 
         return render(request, self.template_name, {
@@ -133,7 +136,10 @@ class PublicProfileView(View):
 
         involved = False
         if request.user.is_authenticated:
-            incomings = Hiree.objects.get(hirer=request.user).hirees.all()
+            incomings = User.objects.none()
+            if Hiree.objects.filter(hirer_id=request.user.id).exists():
+                incomings = Hiree.objects.get(hirer=request.user).hirees.all()
+
             outgoings = Hiree.objects.filter(hirees=request.user)
 
             involved = any([

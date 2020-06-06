@@ -31,14 +31,16 @@
                                     </p>
                                 </div>
                                 <div class="col-lg-9 col-12 col-sm-6 col-xl-5 m-3">
-                                    <form action="{% url 'user-action' profile.user.id 'hire' %}" method="POST">
-                                        {% csrf_token %}
-                                        {% if involved %}
-                                            <button class="btn btn-light btn-lg p-2" disabled> Hire </button>
-                                        {% else %}
-                                            <button class="btn btn-primary btn-lg p-2"> Hire </button>
-                                        {% endif %}
-                                    </form>
+                                    {% if user.id != profile.user.id %}
+                                        <form action="{% url 'user-action' profile.user.id 'hire' %}" method="POST">
+                                            {% csrf_token %}
+                                            {% if involved %}
+                                                <button class="btn btn-light btn-lg p-2" disabled> Hire </button>
+                                            {% else %}
+                                                <button class="btn btn-primary btn-lg p-2"> Hire </button>
+                                            {% endif %}
+                                        </form>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

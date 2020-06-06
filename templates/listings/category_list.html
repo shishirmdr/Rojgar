@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>All Categories</h1>
-  <ul>
-    {% for category in page_obj %}
-      <li><a href="{% url 'category-details' category.slug %}">{{ category.name }}</a></li>
-    {% endfor %}
-  </ul>
+	<div class="container">
+		<h2 class="page-title">All Categories</h2>
 
-  {% include "listings/pagination.html" %}
+		<div class="row">
+			{% for category in page_obj %}
+			<div class="col-6 col-md-4 col-lg-2 category-card-place">
+				<a href="{% url 'category-details' category.slug %}" class="btn btn-outline-info category-button" class="category-button">
+					<h4 class="category-title">{{ category.name }}</h4>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+
+		{% include "listings/pagination.html" %}
+
+	</div>
 {% endblock %}

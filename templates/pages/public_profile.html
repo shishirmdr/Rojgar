@@ -25,4 +25,13 @@
         {% endfor %}
       </ul>
     {% endif %}
+
+    {% if user.id != profile.user.id %}
+      <form action="{% url 'user-action' profile.user.id 'hire' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" {% if involved %}disabled{% endif %}>
+          Hire
+        </button>
+      </form>
+    {% endif %}
 {% endblock %}

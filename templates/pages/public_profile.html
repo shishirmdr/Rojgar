@@ -11,6 +11,21 @@
                              src="https://images.herzindagi.info/image/2020/Feb/sunny-leone-shares-beauty-secrets-m.jpg"
                             id="profile-image1" class="rounded-circle img-fluid p-auto">
                     </div>
+
+                    <div class="favourite">
+                        {% if user.is_authenticated %}
+                        {% if is_favourite %}
+                        <a href="{% url 'favourite_profile' profile.user.id %}">
+                            <i class="fas fa-heart fa-lg" style="color: white;"></i>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'favourite_profile' profile.user.id %}">
+                            <i class="far fa-heart fa-lg" style="color: red;"></i>
+                        </a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+
                     <div class="col-lg-9 col-12 col-sm-6 col-xl-8">
                         <div class="container">
                             <div class="row">
@@ -93,7 +108,7 @@
                                 <p>
                                     Tags :
                                     {% for skill in profile.skills.all %}
-                                     <a href="{% url 'tag-details' skill.slug %}">{{ skill }}</a>,
+                                         {{ skill }}
                                     {% endfor %}
                                 </p>
                             {% endif %}

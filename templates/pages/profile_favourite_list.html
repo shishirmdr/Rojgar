@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for fav in favs %}
+    <div>
+    <div class="fav">
+    <h1>{{ fav.username }}</h1>
+    <h3>{{ fav.profile.occupation }}</h3>
+    </div><hr>
+{% endfor %}
+    </div>
+{% endblock %}

@@ -127,12 +127,15 @@ class TagDetailsView(View):
             'page_obj': page_obj
         })
 
-
 class PublicProfileView(View):
     template_name = 'pages/public_profile.html'
 
     def get(self, request, pk, *args, **kwargs):
         user = get_object_or_404(User, id=pk)
+        profile= user.profile
+        is_favourite = False
+        if profile.favourite.filter(id=request.user.id).exists():
+            is_favourite = True
 
         involved = False
         if request.user.is_authenticated:
@@ -149,8 +152,10 @@ class PublicProfileView(View):
 
         return render(request, self.template_name, {
             'profile': user.profile,
-            'involved': involved
+            'involved': involved,
+            'is_favourite': is_favourite,
         })
+
 
 class UserActionView(LoginRequiredMixin,View):
     def get(self, request, pk, action):
@@ -164,3 +169,22 @@ class UserActionView(LoginRequiredMixin,View):
             Hiree.free(request.user, new_hire)
 
         return redirect('dashboard')
+
+
+def favourite_profile(request, pk):
+        fav= get_object_or_404(User, id=pk)
+
+        if request.user.favourite.filter(user_id=fav.profile).exists():
+            request.user.profile.favourite.remove(fav)
+        else:
+            request.user.profile.favourite.add(fav)
+        return redirect('public_profile', pk)
+
+def profile_favourite_list(request):
+        user = request.user
+        favs = user.profile.favourite.all()
+        print(favs)
+        context = {
+            'favs': favs,
+        }
+        return render(request, 'pages/profile_favourite_list.html', context)

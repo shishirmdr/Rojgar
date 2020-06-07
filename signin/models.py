@@ -21,6 +21,7 @@ class Profile(models.Model):
     skills = TaggableManager(verbose_name='skills', blank=True)
     website = models.URLField(max_length=250, null=True, blank=True)
     joined_at = models.DateTimeField(auto_now_add=True)
+    favourite = models.ManyToManyField(User, related_name='favourite', blank=True)
 
 
 class Hiree(models.Model):

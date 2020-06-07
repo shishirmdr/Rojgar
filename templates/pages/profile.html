@@ -27,7 +27,7 @@
 							<label for="id_last_name">Last name</label>
 							<input type="text" name="last_name" class="form-control" id="id_last_name" value="{{user.last_name}}">
 						</div>
-						
+
 						<div class="form-group">
 							<label for="id_occupation">Occupation</label>
 							<input type="text" name="occupation" class="form-control" id="id_occupation" value="{{user.profile.occupation}}">
@@ -45,8 +45,8 @@
 							<input type="text" name="education" class="form-control" id="id_education" value="{{user.profile.education}}">
 						</div>
 						<div class="form-group">
-							<label for="id_skills">Skills</label>
-							<input type="text" name="skills" class="form-control" id="id_skills">
+							<label for="id_skills">Tags</label>
+              <input type="text" name="skills" class="form-control" id="id_skills" value="{{ user.profile.skills.all|join:', '}}">
 						</div>
 						<div class="form-group">
 							<label for="id_description">Description</label>
@@ -59,7 +59,7 @@
 						<div class="form-group">
 							<p>Available for hire :
 								<input class="p-3 " type="checkbox" name="available_for_hire" class="form-control"
-									   id="id_available_for_hire" checked/>
+                                                                              id="id_available_for_hire"{% if user.profile.available_for_hire %}checked{% endif %} />
 							</p>
 						</div>
 						<button type="submit" value="update" class="btn btn-primary">Update</button>

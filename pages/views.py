@@ -1,10 +1,10 @@
 from taggit.models import Tag
 from django.views import View
-from signin.models import Profile, Hiree
+from signin.models import Profile, Hiree, Comment
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from signin.forms import CustomUserChangeForm, ProfileForm
+from signin.forms import CustomUserChangeForm, ProfileForm, CommentForm
 from django.shortcuts import render, redirect, get_object_or_404
 
 
@@ -133,6 +133,12 @@ class PublicProfileView(View):
 
     def get(self, request, pk, *args, **kwargs):
         user = get_object_or_404(User, id=pk)
+        comments = user.profile.comment_set.all()
+        profile= user.profile
+        comment_form = CommentForm()
+        is_favourite = False
+        if profile.favourite.filter(id=request.user.id).exists():
+            is_favourite = True
 
         involved = False
         if request.user.is_authenticated:
@@ -149,7 +155,10 @@ class PublicProfileView(View):
 
         return render(request, self.template_name, {
             'profile': user.profile,
-            'involved': involved
+            'involved': involved,
+            'comment_form': comment_form,
+            'comments': comments,
+            'is_favourite': is_favourite,
         })
 
 class UserActionView(LoginRequiredMixin,View):
@@ -164,3 +173,35 @@ class UserActionView(LoginRequiredMixin,View):
             Hiree.free(request.user, new_hire)
 
         return redirect('dashboard')
+
+class CommentView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        form = CommentForm(request.POST)
+        profile = get_object_or_404(Profile, id=pk)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.profile = profile
+            comment.save()
+            return redirect('public_profile', pk)
+
+        return redirect('public_profile', pk)
+
+def favourite_profile(request, pk):
+        fav= get_object_or_404(User, id=pk)
+
+        if request.user.favourite.filter(user_id=fav.profile).exists():
+            request.user.profile.favourite.remove(fav)
+        else:
+            request.user.profile.favourite.add(fav)
+        return redirect('public_profile', pk)
+
+def profile_favourite_list(request):
+        user = request.user
+        favs = user.profile.favourite.all()
+        print(favs)
+        context = {
+            'favs': favs,
+        }
+        return render(request, 'pages/profile_favourite_list.html', context)

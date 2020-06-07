@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 
 class Profile(models.Model):
@@ -21,7 +23,18 @@ class Profile(models.Model):
     skills = TaggableManager(verbose_name='skills', blank=True)
     website = models.URLField(max_length=250, null=True, blank=True)
     joined_at = models.DateTimeField(auto_now_add=True)
+    favourite = models.ManyToManyField(User, related_name='favourite', blank=True)
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    body = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"Profile: {self.profile.user.username}, Commenter: {self.user}"
 
 class Hiree(models.Model):
     hirees = models.ManyToManyField(User, null=True)

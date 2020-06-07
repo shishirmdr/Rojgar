@@ -92,7 +92,7 @@
                                 <p>
                                     Tags :
                                     {% for skill in profile.skills.all %}
-                                     <a href="{% url 'category-details' skill.slug %}">{{ skill }}</a>,
+                                     <a href="{% url 'tag-details' skill.slug %}">{{ skill }}</a>,
                                     {% endfor %}
                                 </p>
                             {% endif %}

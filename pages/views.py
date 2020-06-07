@@ -96,9 +96,9 @@ class SearchResultsView(View):
         })
 
 
-class CategoryListView(View):
+class TagListView(View):
     queryset = Tag.objects.all()
-    template_name = 'listings/category_list.html'
+    template_name = 'listings/tag_list.html'
 
     def get(self, request, *args, **kwargs):
         paginator = Paginator(self.queryset, 12)
@@ -110,14 +110,14 @@ class CategoryListView(View):
         })
 
 
-class CategoryDetailsView(View):
-    template_name = 'listings/category_details.html'
+class TagDetailsView(View):
+    template_name = 'listings/tag_details.html'
 
     def get(self, request, slug, *args, **kwargs):
-        category = get_object_or_404(Tag, slug=slug)
+        tag = get_object_or_404(Tag, slug=slug)
         user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
         queryset = user_excluded_queryset.filter(available_for_hire=True,
-                                          skills=category)
+                                          skills=tag)
 
         paginator = Paginator(queryset, 10)
         page_no = request.GET.get('page')

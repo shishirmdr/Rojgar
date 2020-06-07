@@ -24,7 +24,7 @@ class Profile(models.Model):
 
 
 class Hiree(models.Model):
-    hirees = models.ManyToManyField(User, null=True)
+    hirees = models.ManyToManyField(User)
     hirer = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                                      related_name='hirer')
 

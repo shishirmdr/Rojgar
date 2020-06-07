@@ -5,9 +5,9 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('search/', views.SearchResultsView.as_view(), name='search-results'),
 
-    path('categories/', views.CategoryListView.as_view(), name='category-list'),
-    path('categories/<slug:slug>/', views.CategoryDetailsView.as_view(),
-         name='category-details'),
+    path('tags/', views.TagListView.as_view(), name='tag-list'),
+    path('tags/<slug:slug>/', views.TagDetailsView.as_view(),
+         name='tag-details'),
 
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
     path('profile/', views.ProfileView.as_view(), name='profile'),

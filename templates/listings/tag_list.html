@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container">
+		<h2 class="page-title">All Categories</h2>
+
+		<div class="row">
+			{% for tag in page_obj %}
+			<div class="col-6 col-md-4 col-lg-2 tag-card-place">
+				<a href="{% url 'tag-details' tag.slug %}" class="btn btn-outline-info tag-button" class="tag-button">
+					<h4 class="tag-title">{{ tag.name }}</h4>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+
+		{% include "listings/pagination.html" %}
+
+	</div>
+{% endblock %}

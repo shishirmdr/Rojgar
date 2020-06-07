@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
   <h2 class="page-title">Search results for <i class="text-info">{{ request.GET.q }}</i></h2>
-  <form method="GET" action="/search">
+  <form method="GET" action="/search" style="padding-bottom: 1em;">
     <div class="form-row">
       <div class="col-9 col-md-10 mb-2 mb-md-0">
         <input type="text" name="q" class="form-control form-control-lg" value="{{ request.GET.q }}">
@@ -15,6 +15,7 @@
     </div>
   </form>
 </div>
+<div class="service">
   {% if page_obj %}
     <!-- use result.user.profile to get access to profile fields -->
     <div class="row user-card-row">
@@ -25,7 +26,7 @@
             <div class="card-body">
               <div class="user-description">
                 <div class="user-header">
-                  <div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({% static 'images/default_profile_pic.jpg' %});background-color: grey;background-size: 2em 2em;"></div>
+                  <div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({% static 'images/default_profile_pic.png' %});background-color: grey;background-size: 2em 2em;"></div>
                   <div style="padding-left: 1em;">
                     <b>{{ result.user.username }}</b></br>
                     <span class="sml-text">{{ result.user.profile.occupation }}</span>
@@ -48,5 +49,5 @@
     <h1 class="display-3 text-muted notfound">No Result Found!</h1>
   {% endif %}
 
-
+</div>
 {% endblock %}

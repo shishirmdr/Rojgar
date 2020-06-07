@@ -7,7 +7,7 @@
 		<div class="row">
 			{% for category in page_obj %}
 			<div class="col-6 col-md-4 col-lg-2 category-card-place">
-				<a href="{% url 'category-details' category.slug %}" class="btn btn-outline-info category-button" class="category-button">
+				<a href="{% url 'category-details' category.slug %}" class="btn btn-outline-info category-button">
 					<h4 class="category-title">{{ category.name }}</h4>
 				</a>
 			</div>

@@ -92,7 +92,7 @@
                                 <p>
                                     Tags :
                                     {% for skill in profile.skills.all %}
-                                     <a href="{% url 'tag-details' skill.slug %}">{{ skill }}</a>,
+                                        <a href="{% url 'tag-details' skill.slug %}">{{ skill }}</a>,
                                     {% endfor %}
                                 </p>
                             {% endif %}
@@ -100,6 +100,27 @@
                     </div>
                 </div>
             </div>
+        </div>
+        {% if user.is_authenitcated %}
+            {% if user.id != profile.user.id %}
+                <div>
+                    <form method="POST" action="{% url 'comment-view' profile.user.id %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Post</button>
+                    </form>
+                </div>
+            {% endif %}
+        {% endif %}
+        <div>
+            <h1>All Comments</h1>
+            <ul>
+                {% for comment in comments %}
+                    <li><b><i>{{ comment.user.username }} says, </i></b>{{ comment.body }}</li>
+                {% empty %}
+                    <li>No comments yet</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 {% endblock %}

@@ -38,3 +38,12 @@ class Hiree(models.Model):
         _hirer, created = _class.objects.get_or_create(hirer=hirer)
         _hirer.hirees.remove(new_hiree)
 
+
+class Comment(models.Model):
+    user      = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile   = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    body      = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.body

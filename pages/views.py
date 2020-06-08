@@ -188,7 +188,7 @@ class CommentView(LoginRequiredMixin, View):
         form = self.comment_form_class(request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
-            new_comment.user = owner
+            new_comment.user = request.user
             new_comment.profile = profile
 
             print(new_comment)

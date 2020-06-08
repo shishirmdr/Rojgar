@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-        {% if user.is_authenitcated %}
+        {% if user.is_authenticated %}
             {% if user.id != profile.user.id %}
                 <div>
                     <form method="POST" action="{% url 'comment-view' profile.user.id %}">

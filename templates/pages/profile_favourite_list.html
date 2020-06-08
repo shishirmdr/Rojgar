@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+
+      <div class="fav-list">
+        {% for fav in favs %}
+          <div class="fav-item">
+            <div class="fav-prop"><a href="{% url 'public_profile' fav.id %}">{{ fav.username }}</a></div>
+            <div class="fav-prop">{{ fav.profile.occupation }}</div>
+          </div>
+          <hr>
+        {% endfor %}
+      </div>
+  </div>
+{% endblock %}

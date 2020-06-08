@@ -41,6 +41,20 @@
                                             {% endif %}
                                         </form>
                                     {% endif %}
+                                    {% if user.is_authenticated %}
+                                        <div class="favourite">
+                                            <form methd="POST" action="{% url 'add-favourite' profile.user.id %}">
+                                                {% csrf_token %}
+                                                <button type='submit' class='btn btn-light'>
+                                                    {% if is_favourite %}
+                                                        <i class="fas fa-heart"></i>
+                                                    {% else %}
+                                                        <i class="far fa-heart"></i>
+                                                    {% endif %}
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

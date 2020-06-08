@@ -127,7 +127,6 @@ class TagDetailsView(View):
             'page_obj': page_obj
         })
 
-
 class PublicProfileView(View):
     template_name = 'pages/public_profile.html'
     comment_form_class = CommentForm
@@ -136,6 +135,11 @@ class PublicProfileView(View):
         user = get_object_or_404(User, id=pk)
         comments = user.profile.comment_set.all()
         form = self.comment_form_class()
+        profile = user.profile
+
+        is_favourite = False
+        if request.user.profile.favourite.filter(id=user.id).exists():
+            is_favourite = True
 
         involved = False
         if request.user.is_authenticated:
@@ -150,15 +154,17 @@ class PublicProfileView(View):
                 outgoings.filter(hirer_id=pk).exists()
             ])
 
+        print(is_favourite)
         return render(request, self.template_name, {
             'profile': user.profile,
             'involved': involved,
             'form': form,
             'comments': comments,
+            'is_favourite': is_favourite,
         })
 
 
-class UserActionView(LoginRequiredMixin, View):
+class UserActionView(LoginRequiredMixin,View):
     def get(self, request, pk, action):
         return redirect('public_profile', pk=pk)
 
@@ -190,3 +196,22 @@ class CommentView(LoginRequiredMixin, View):
 
         return redirect('public_profile', pk=pk)
 
+def add_favourite(request, pk):
+        fav = get_object_or_404(User, id=pk)
+
+        if request.user.profile.favourite.filter(id=fav.id).exists():
+            print('removed')
+            request.user.profile.favourite.remove(fav)
+        else:
+            print('saved')
+            request.user.profile.favourite.add(fav)
+        return redirect('public_profile', pk=pk)
+
+def list_favourites(request):
+        user = request.user
+        favs = user.profile.favourite.all()
+        print(favs)
+        context = {
+            'favs': favs,
+        }
+        return render(request, 'pages/profile_favourite_list.html', context)

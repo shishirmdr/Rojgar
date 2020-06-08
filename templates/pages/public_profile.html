@@ -124,28 +124,55 @@
 				</div>
 			</div>
 		</div>
-		{% if user.is_authenticated %}
+
+		<div class="container mt-4">
+			{% if user.is_authenticated %}
 			{% if not already_commented %}
-				{% if user.id != profile.user.id %}
-					<div>
-						<form method="POST" action="{% url 'comment-view' profile.user.id %}">
-							{% csrf_token %}
-							{{ form.as_p }}
-							<button type="submit">Post</button>
-						</form>
-					</div>
-				{% endif %}
-			{% endif %}
-		{% endif %}
-		<div>
-			<h1>All Comments</h1>
-			<ul>
-				{% for comment in comments %}
-					<li><b><i>{{ comment.user.username }} says, </i></b>{{ comment.body }}</li>
-				{% empty %}
-					<li>No comments yet</li>
-				{% endfor %}
-			</ul>
+			{% if user.id != profile.user.id %}
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+					aria-expanded="false" aria-controls="collapseExample">
+				Post Comment
+			</button>
 		</div>
-	</div>
+
+		<div class="collapse" id="collapseExample">
+
+			<div>
+				<form method="POST" action="{% url 'comment-view' profile.user.id %}">
+					{% csrf_token %}
+					<div class="form-group mt-3">
+						<label for="id_body"><b>Comment Box</b></label>
+						<textarea name="body" class="form-control" id="id_body"></textarea>
+					</div>
+					<button type="submit" class="btn btn-success">Post</button>
+				</form>
+			</div>
+
+		</div>
+		{% endif %}
+		{% endif %}
+		{% endif %}
+	</div
+
+<div class="container">
+	<h2>comments</h2>
+	{% for comment in comments %}
+	<section id="comments mt-4">
+		<div class="media comment-box ">
+			<img src="http://placehold.it/55x55" alt="media object image">
+			<div class="media-body ml-3">
+				<p><b>{{ comment.user.username}}</b></p>
+				<p >{{ comment.body }}</p>
+			</div>
+		</div>
+	<hr>
+	</section>
+	{% empty %}
+	<section id="comment mt-4">
+		<div class="media">
+			<p>No comments yet.</p>
+		</div>
+	</section>
+	{% endfor %}
+</div>
 {% endblock %}

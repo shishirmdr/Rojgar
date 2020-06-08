@@ -124,7 +124,37 @@ textarea:focus, input:focus{
 ****************************/
 .notfound{
   text-align: center;
-  margin-top: 25vh;
+  margin-top: 15vh;
+}
+
+/****************************
+      dashboard css
+****************************/
+.dashboardmain{
+  display: flex;
+  justify-content: center;
+  padding-top: 2em;
+}
+
+.dashuserimg{
+  height: 10em;
+  width: 10em;
+  background-color: grey;
+  border-radius: 0.2em;
+}
+
+.emptybox{
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed grey;
+  border-radius: 3em;
+}
+
+.notempty{
+  min-height: 60vh;
 }
 
 .page-section{

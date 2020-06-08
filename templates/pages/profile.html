@@ -45,8 +45,9 @@
 							<input type="text" name="education" class="form-control" id="id_education" value="{{user.profile.education}}">
 						</div>
 						<div class="form-group">
-							<label for="id_skills">Tags</label>
-              <input type="text" name="skills" class="form-control" id="id_skills" value="{{ user.profile.skills.all|join:', '}}">
+							<label for="id_skills">Skills</label>
+							<input type="text" name="skills" class="form-control" id="id_skills"
+							value="{% for skill in user.profile.skills.all %}{{ skill }}, {% endfor %}"/>
 						</div>
 						<div class="form-group">
 							<label for="id_description">Description</label>
@@ -71,7 +72,7 @@
 </div>
 
 {% else %}
-<h1>Forbidden!</h1>
+<h1 class="text-disabled notfound">Forbidden!</h1>
 {% endif %}
 
 

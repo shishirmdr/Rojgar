@@ -1,43 +1,94 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-  <div class="container">
-      <h1>{{ user.email }}</h1>
-      <form action="{% url 'logout' %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="Logout">
-      </form>
 
-      <p>Update your profile to open up yourself to the world!</p>
-      <a href="{% url 'profile' %}">Update Profile</a>
-      <p><a href="{% url 'public_profile' user.id %}">Public Profile</a></p>
-      <h3>Active: {{ user.profile.available_for_hire }}</h3>
+  <div class="row">
+    <div class="col-12 col-lg-4" style="background-color: #465b66;text-align: center;">
+      <div class="container">
+        <div class="dashboardmain">
+          <div class="dashuserimg">
+            <img src="{% static 'images/default_profile_pic.png' %}" height="100%" width="100%" />
+          </div>
+        </div>
 
-      <h1>Transactions</h1>
-      <h3>Incoming</h3>
+          <div class="row" style="margin-top: 1em;">
+            <div class="col-8">
+              <a href="{% url 'profile' %}" class="btn btn-info btn-sm"><i class="fas fa-pen"></i>  Edit Profile</a>
+            </div>
+            <div class="col-2">
+              <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">
+                  <i class="fas fa-sign-out-alt"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+
+
+        <h1 class="display-4 text-white text-truncate">{{ user.username }}</h1>
+
+        <h5 class="text-white text-truncate">{{ user.email }}</h5>
+        {% if user.profile.available_for_hire %}
+          <p class="text-success"><b>Active as Rojgar Worker</b></p>
+        {% else %}
+          <span class="text-danger"><b>Inctive as Rojgar Worker</b></span>
+          <p class="sml-text text-white">Update your profile to open up yourself to the world!</p>
+        {% endif %}
+        <a href="{% url 'public_profile' user.id %}" class="btn btn-info" style="margin-bottom: 2em;margin-top: 1em;">View Public Profile</a>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8">
+      <h4>Transactions</h4>
+      <h5 class="page-title">Jobs given by you:</h5>
       {% if incomings %}
-        <ul>
+        <div class="row notempty container">
           {% for item in incomings %}
-            <li> <a href="{% url 'public_profile' item.id %}">{{ item.username }}</a> </li>
-            <form action="{% url 'user-action' item.id 'free' %}" method="POST">
-              {% csrf_token %}
-              <button type="submit"> Free </button>
-            </form>
+            <div class="col-12 user-card">
+              <div class="card service">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <a href="{% url 'public_profile' item.id %}"><h5>{{ item.username }}</h5></a>
+                    </div>
+                    <div class="col-3">
+                      <form action="{% url 'user-action' item.id 'free' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning text-white"> Free </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           {% endfor %}
-        </ul>
+        </div>
       {% else %}
-        <p>There are no current incoming transactions.</p>
+        <div class="emptybox"><h3 class="text-muted" >No current incoming transactions.</h3></div>
       {% endif %}
 
-      <h3>Outgoing</h3>
-      {% if outgoings %}
-        <ul>
-          {% for item in outgoings %}
-            <li><a href="{% url 'public_profile' item.hirer.id %}">{{ item.hirer.username }}</a></li>
-          {% endfor %}
-        </ul>
+      <h5 class="page-title">Jobs given to you:</h5>
+      {% if user.profile.available_for_hire %}
+        {% if outgoings %}
+          <div class="row notempty container">
+            {% for item in outgoings %}
+              <div class="col-12 user-card">
+                <div class="card service">
+                  <div class="card-body">
+                    <a href="{% url 'public_profile' item.hirer.id %}"><h5>{{ item.hirer.username }}</h5></a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="emptybox"><h3 class="text-muted" > No current outgoing transactions.</h3></div>
+        {% endif %}
       {% else %}
-        <p>There are no current outgoing transactions.</p>
+        <div class="emptybox"><h3 class="text-muted" >You are not working.</h3></div>
       {% endif %}
+    </div>
   </div>
 {% endblock %}

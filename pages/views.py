@@ -138,11 +138,11 @@ class PublicProfileView(View):
         profile = user.profile
 
         is_favourite = False
-        if request.user.profile.favourite.filter(id=user.id).exists():
-            is_favourite = True
-
         involved = False
         if request.user.is_authenticated:
+            if request.user.profile.favourite.filter(id=user.id).exists():
+                is_favourite = True
+
             incomings = User.objects.none()
             if Hiree.objects.filter(hirer_id=request.user.id).exists():
                 incomings = Hiree.objects.get(hirer=request.user).hirees.all()

@@ -1,16 +1,44 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <div class="container">
-
-      <div class="fav-list">
+    <h2 class="page-title">My Saved Profiles</h2>
+  </div>
+  
+  {% if fav %}
+  <div class="service" style="padding-bottom: 2em;">
+    <div class="container">
+      <div class="row">
         {% for fav in favs %}
-          <div class="fav-item">
-            <div class="fav-prop"><a href="{% url 'public_profile' fav.id %}">{{ fav.username }}</a></div>
-            <div class="fav-prop">{{ fav.profile.occupation }}</div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="card user-card">
+                <img src="https://m.media-amazon.com/images/S/aplus-media/vc/cab6b08a-dd8f-4534-b845-e33489e91240._CR75,0,300,300_PT0_SX300__.jpg" class="card-img-top user-card-image"/>
+                <div class="card-body">
+                  <div class="user-description">
+                    <div class="user-header">
+                      <div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({% static 'images/default_profile_pic.png' %});background-color: grey;background-size: 2em 2em;"></div>
+                      <div style="padding-left: 1em;">
+                        <b>{{ fav.username }}</b></br>
+                        <span class="sml-text">{{ fav.profile.occupation }}</span>
+                      </div>
+                    </div>
+
+                    <p class="card-text sml-text">{{ fav.profile.description }}</p>
+                  </div>
+                  <hr/>
+                  <div>
+                    <a href="{% url 'public_profile' fav.id %}" class="btn btn-info">View Profile</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <hr>
         {% endfor %}
       </div>
+    </div>
   </div>
+  {% else %}
+    <p class="display-3 text-muted notfound">No Profiles Saved!</p>
+  {% endif %}
 {% endblock %}

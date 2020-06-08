@@ -123,14 +123,16 @@
             </div>
         </div>
         {% if user.is_authenticated %}
-            {% if user.id != profile.user.id %}
-                <div>
-                    <form method="POST" action="{% url 'comment-view' profile.user.id %}">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Post</button>
-                    </form>
-                </div>
+            {% if not already_commented %}
+                {% if user.id != profile.user.id %}
+                    <div>
+                        <form method="POST" action="{% url 'comment-view' profile.user.id %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Post</button>
+                        </form>
+                    </div>
+                {% endif %}
             {% endif %}
         {% endif %}
         <div>

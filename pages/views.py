@@ -139,6 +139,7 @@ class PublicProfileView(View):
 
         is_favourite = False
         involved = False
+        already_commented = False
         if request.user.is_authenticated:
             if request.user.profile.favourite.filter(id=user.id).exists():
                 is_favourite = True
@@ -154,6 +155,9 @@ class PublicProfileView(View):
                 outgoings.filter(hirer_id=pk).exists()
             ])
 
+            if profile.comment_set.filter(user=request.user).exists():
+                already_commented = True
+
         print(is_favourite)
         return render(request, self.template_name, {
             'profile': user.profile,
@@ -161,6 +165,7 @@ class PublicProfileView(View):
             'form': form,
             'comments': comments,
             'is_favourite': is_favourite,
+            'already_commented': already_commented,
         })
 
 

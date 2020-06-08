@@ -21,6 +21,7 @@ class Profile(models.Model):
     skills = TaggableManager(verbose_name='skills', blank=True)
     website = models.URLField(max_length=250, null=True, blank=True)
     joined_at = models.DateTimeField(auto_now_add=True)
+    favourite = models.ManyToManyField(User, related_name='favourite', blank=True)
 
 
 class Hiree(models.Model):
@@ -38,3 +39,12 @@ class Hiree(models.Model):
         _hirer, created = _class.objects.get_or_create(hirer=hirer)
         _hirer.hirees.remove(new_hiree)
 
+
+class Comment(models.Model):
+    user      = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile   = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    body      = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.body

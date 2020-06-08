@@ -15,9 +15,10 @@
       </ul>
       {% if user.is_authenticated %}
         <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }} <img src="{% static 'images/default_profile_pic.png' %}" style="width: 1.4em; height: 1.4em;border-radius: 2em;"/></a>
+          <a class="nav-link dropdown-toggle text-white" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
           <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="{% url 'dashboard' %}">Profile</a>
+            <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
+            <a class="dropdown-item" href="{% url 'list-favourites' %}">Saved</a>
             <a class="dropdown-item" href="#">
               <form action="{% url 'logout' %}" method="POST">
                 {% csrf_token %}

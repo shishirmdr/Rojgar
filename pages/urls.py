@@ -14,4 +14,9 @@ urlpatterns = [
 
     path('public/<int:pk>/', views.PublicProfileView.as_view(), name='public_profile'),
     path('public/<int:pk>/<str:action>/', views.UserActionView.as_view(), name='user-action'),
+    path('public/comment/<int:pk>/', views.CommentView.as_view(), name='comment-view'),
+
+    path('favourite_profile/<int:pk>/', views.add_favourite, name="add-favourite"),
+    path('favourites/', views.list_favourites, name="list-favourites")
+
 ]

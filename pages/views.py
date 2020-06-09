@@ -11,11 +11,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 def home(request):
     categories = Profile._meta.get_field('category').choices
     popular_tags = Profile.skills.most_common()[:10]
-    featured_users = Profile.objects.filter(user__is_superuser=False)[:10]
+    recently_added = Profile.objects.filter(available_for_hire=True).order_by('joined_at')[:10]
     return render(request, 'pages/home.html', {
         'categories': categories,
         'popular_tags': popular_tags,
-        'featured': featured_users,
+        'recently_added': recently_added,
     })
 
 

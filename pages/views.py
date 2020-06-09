@@ -63,6 +63,9 @@ class ProfileView(LoginRequiredMixin, View):
             user_profile_form.save_m2m()
             return redirect('dashboard')
 
+
+        print(user_profile_form.is_valid())
+
         return render(request, self.template_name, {
             'user_form': user_change_form,
             'profile_form': user_profile_form

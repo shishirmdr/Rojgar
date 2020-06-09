@@ -183,3 +183,9 @@ textarea:focus, input:focus{
   background-color:#F8F8FF;
   padding-top: 0;
 }
+
+
+.eye{
+  top: 20%;
+  left: 60%;
+}

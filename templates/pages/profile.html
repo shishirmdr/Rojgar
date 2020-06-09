@@ -13,7 +13,7 @@
 		<div class="card-body" >
 			<div class="row justify-content-left mt-4">
 				<div class="col-md-5 ml-5">
-					<form method="post">
+          <form method="post" action="{% url 'profile' %}">
 						{% csrf_token %}
 						<div class="form-group">
 							<label for="id_username">Username</label>
@@ -32,6 +32,31 @@
 							<label for="id_occupation">Occupation</label>
 							<input type="text" name="occupation" class="form-control" id="id_occupation" value="{{user.profile.occupation}}">
 						</div>
+
+						<div class="form-group">
+							<label for="id_category">Category</label>
+							<select name="category" id="id_category" class="form-control">
+                <option value="P&T"> Programming & Technology</option>
+                <option value="G&D"> Graphics & Design</option>
+                <option value="DM"> Digital Marketing</option>
+                <option value="W&T"> Writing & Translation</option>
+                <option value="DE"> Data Entry</option>
+                <option value="V&M"> Video & Animation</option>
+                <option value="M&A"> Music & Audio</option>
+                <option value="B&I"> Business & Investment</option>
+                <option value="CS"> Consulting Service</option>
+                <option value="AH"> Architect Designs</option>
+                <option value="LI"> Lifestyle</option>
+                <option value="M&P"> Medical & Pharma</option>
+                <option value="AUD"> Audit & Taxation</option>
+                <option value="QA"> Quality Assurance</option>
+                <option value="ENG"> Engineering Consultancy</option>
+                <option value="OM"> Organization Management</option>
+                <option value="RP"> Repair & Technical Support</option>
+                <option value="E&T" selected> Education & Teaching</option>
+							</select>
+						</div>
+
 						<div class="form-group">
 							<label for="id_gender">Gender</label>
 							<select name="gender" class="form-control" id="id_gender">
@@ -45,10 +70,16 @@
 							<input type="text" name="education" class="form-control" id="id_education" value="{{user.profile.education}}">
 						</div>
 						<div class="form-group">
-							<label for="id_skills">Skills</label>
+							<label for="id_skills">Tags</label>
 							<input type="text" name="skills" class="form-control" id="id_skills"
 							value="{% for skill in user.profile.skills.all %}{{ skill }}, {% endfor %}"/>
 						</div>
+
+						<div class="form-group">
+							<label for="id_price">price</label>
+							<input type="number" name="price" placeholder="enter amount in nepali rupees" class="form-control" id="id_price" value="{{ user.profile.price }}">
+						</div>
+
 						<div class="form-group">
 							<label for="id_description">Description</label>
 							<textarea name="description" class="form-control" id="id_description">{{user.profile.description}}</textarea>

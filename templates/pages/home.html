@@ -40,6 +40,46 @@
 		</div>
 	</header>
 
+
+	<center><h1>Recently Added & More</h1></center>
+	<div class="service">
+	  <div class="container">
+	    <div class="row">
+	      {% for item in recently_added %}
+		      <div class="col-sm-6 col-md-4 col-lg-3">
+		        <div class="card user-card">
+		          <img src="https://m.media-amazon.com/images/S/aplus-media/vc/cab6b08a-dd8f-4534-b845-e33489e91240._CR75,0,300,300_PT0_SX300__.jpg		" class="card-img-top user-card-image" />
+		          <div class="card-body">
+		            <div class="user-description">
+		              <div class="user-header">
+		                <div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({% static 'images/default_profile_pic.png' %});background-color: grey;background-size: 2em 2em;">
+		                </div>
+		                <div style="padding-left: 1em;">
+		                  <b>{{ item.user.username }}</b>
+		                  <div>
+			                  <span class="sml-text">{{ item.occupation }}</span>
+		                  </div>
+		                </div>
+		              </div>
+		              <p style="font-size: 15px;" class="card-text sml-text">{{ item.description }}</p>
+		              <h5>NRs. {{ item.price }}</h5>
+		            </div>
+		            <hr />
+		            <div>
+		              <a href="{% url 'public_profile' item.user.id %}" class="btn btn-info">View Profile</a>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+	      {% endfor %}
+	    </div>
+	  </div>
+	</div>
+	<hr>
+
+
+
+
 	<div class="service">
 		<!--our services section-->
 		<section class="page-section" id="services">
@@ -108,13 +148,11 @@
 
 	<h1>Popular Tags</h1>
 	{% for tag in popular_tags %}
-		<a href="{% url 'tag-details' tag %}">{{ tag }} </a>
+		<a href="{% url 'tag-details' tag.slug %}">{{ tag }} </a>
 	{% endfor %}
 
-	<h1>Featured Users</h1>
-	{% for item in featured %}
-		<p><a href="{% url 'public_profile' item.user.id %}">{{ item.user.username }}</a></p>
-	{% endfor %}
-	<hr>
+
 </main>
 {% endblock content %}
+
+

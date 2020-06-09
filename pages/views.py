@@ -11,11 +11,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 def home(request):
     categories = Profile._meta.get_field('category').choices
     popular_tags = Profile.skills.most_common()[:10]
-    featured_users = Profile.objects.filter(user__is_superuser=False)[:10]
+    recently_added = Profile.objects.filter(
+        user__is_superuser=False,
+        available_for_hire=True
+    ).order_by('-joined_at')[:10]
+
     return render(request, 'pages/home.html', {
         'categories': categories,
         'popular_tags': popular_tags,
-        'featured': featured_users,
+        'recently_added': recently_added,
     })
 
 
@@ -71,7 +75,7 @@ class ProfileView(LoginRequiredMixin, View):
             return redirect('dashboard')
 
 
-        print(user_profile_form.is_valid())
+        # print(user_profile_form.is_valid())
 
         return render(request, self.template_name, {
             'user_form': user_change_form,
@@ -168,7 +172,7 @@ class PublicProfileView(View):
             if profile.comment_set.filter(user=request.user).exists():
                 already_commented = True
 
-        print(is_favourite)
+        # print(is_favourite)
         return render(request, self.template_name, {
             'profile': user.profile,
             'involved': involved,
@@ -206,7 +210,7 @@ class CommentView(LoginRequiredMixin, View):
             new_comment.user = request.user
             new_comment.profile = profile
 
-            print(new_comment)
+            # print(new_comment)
             new_comment.save()
 
         return redirect('public_profile', pk=pk)
@@ -215,17 +219,17 @@ def add_favourite(request, pk):
         fav = get_object_or_404(User, id=pk)
 
         if request.user.profile.favourite.filter(id=fav.id).exists():
-            print('removed')
+            # print('removed')
             request.user.profile.favourite.remove(fav)
         else:
-            print('saved')
+            # print('saved')
             request.user.profile.favourite.add(fav)
         return redirect('public_profile', pk=pk)
 
 def list_favourites(request):
         user = request.user
         favs = user.profile.favourite.all()
-        print(favs)
+        # print(favs)
         context = {
             'favs': favs,
         }

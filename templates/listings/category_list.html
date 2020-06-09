@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Top Categories</h1>
+  {% for cat_key, cat_val in categories %}
+    <div>
+      <a href="{% url 'category-details' cat_key %}">{{ cat_val }}</a>
+    </div>
+  {% endfor %}
+{% endblock %}

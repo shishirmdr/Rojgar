@@ -100,6 +100,21 @@
 			</div>
 		</section>
 	</div>
-<hr>
+
+	<h1>Categories</h1>
+	{% for cat_id, cat_val in categories %}
+		<a href="{% url 'category-details' cat_id %}">{{ cat_val }}</a>
+	{% endfor %}
+
+	<h1>Popular Tags</h1>
+	{% for tag in popular_tags %}
+		<a href="{% url 'tag-details' tag %}">{{ tag }} </a>
+	{% endfor %}
+
+	<h1>Featured Users</h1>
+	{% for item in featured %}
+		<p><a href="{% url 'public_profile' item.user.id %}">{{ item.user.username }}</a></p>
+	{% endfor %}
+	<hr>
 </main>
 {% endblock content %}

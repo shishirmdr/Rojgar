@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if page_obj %}
+    {% for worker in page_obj %}
+      <div>
+        <a href="{% url 'public_profile' worker.user.id %}">{{ worker.user.username }}</a>
+      </div>
+    {% endfor %}
+    {% include "listings/pagination.html" %}
+  {% else %}
+    <h1>None Found!</h1>
+  {% endif %}
+{% endblock %}

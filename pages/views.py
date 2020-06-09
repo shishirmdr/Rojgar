@@ -9,7 +9,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 
 def home(request):
-    return render(request, 'pages/home.html')
+    categories = Profile._meta.get_field('category').choices
+    popular_tags = Profile.skills.most_common()[:10]
+    featured_users = Profile.objects.filter(user__is_superuser=False)[:10]
+    return render(request, 'pages/home.html', {
+        'categories': categories,
+        'popular_tags': popular_tags,
+        'featured': featured_users,
+    })
 
 
 class DashboardView(LoginRequiredMixin, View):
@@ -223,3 +230,32 @@ def list_favourites(request):
             'favs': favs,
         }
         return render(request, 'pages/profile_favourite_list.html', context)
+
+
+class CategoryListView(View):
+    template_name = 'listings/category_list.html'
+
+    def get(self, request):
+        categories = Profile._meta.get_field('category').choices
+
+        return render(request, self.template_name, {
+            'categories': categories
+        })
+
+class CategoryDetailsView(View):
+    template_name = 'listings/category_details.html'
+
+    def get(self, request, cat):
+        queryset = Profile.objects.exclude(user__id=request.user.id)
+        queryset = queryset.filter(
+            category=cat,
+            available_for_hire=True
+        )
+
+        paginator = Paginator(queryset, 1)
+        page_no = request.GET.get('page')
+        page_obj = paginator.get_page(page_no)
+
+        return render(request, self.template_name, {
+            'page_obj': page_obj
+        })

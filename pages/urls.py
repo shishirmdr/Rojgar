@@ -17,6 +17,9 @@ urlpatterns = [
     path('public/comment/<int:pk>/', views.CommentView.as_view(), name='comment-view'),
 
     path('favourite_profile/<int:pk>/', views.add_favourite, name="add-favourite"),
-    path('favourites/', views.list_favourites, name="list-favourites")
+    path('favourites/', views.list_favourites, name="list-favourites"),
 
+
+    path('categories/', views.CategoryListView.as_view(), name='category-list'),
+    path('categories/<str:cat>/', views.CategoryDetailsView.as_view(), name='category-details'),
 ]

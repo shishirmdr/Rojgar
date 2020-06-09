@@ -30,7 +30,7 @@ class Profile(models.Model):
     )
 
     category = models.CharField(max_length=40, choices=category_choices, default='E&T',)
-    description = models.TextField(max_length=1000, default='', null=True)
+    description = models.TextField(max_length=1000, default='', blank=True)
 
     gender_choices = (
         ("M","Male"),

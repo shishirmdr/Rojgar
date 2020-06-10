@@ -33,6 +33,8 @@ class DashboardView(LoginRequiredMixin, View):
 
         outgoings = Hiree.objects.filter(hirees=request.user)
 
+        print(outgoings)
+
         return render(request, self.template_name, {
             'incomings': incomings,
             'outgoings': outgoings,

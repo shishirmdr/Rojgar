@@ -14,7 +14,7 @@ def home(request):
     recently_added = Profile.objects.filter(
         user__is_superuser=False,
         available_for_hire=True
-    ).order_by('-joined_at')[:10]
+    ).order_by('-joined_at')[:8]
 
     return render(request, 'pages/home.html', {
         'categories': categories,

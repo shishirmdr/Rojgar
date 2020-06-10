@@ -1,10 +1,197 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Top Categories</h1>
-  {% for cat_key, cat_val in categories %}
-    <div>
-      <a href="{% url 'category-details' cat_key %}">{{ cat_val }}</a>
-    </div>
-  {% endfor %}
+<div class="container">
+	<h2 class="page-title">All Categories</h2>
+	<div class="row">
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="P&T/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?code" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Programming and Technology</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="G&D/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?patterns" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Graphics and Design</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="DM/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?marketing" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Digital Marketing</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="W&T/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?writing" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Writing and Translation</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="DE/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?coding" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Data Entry</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="V&M/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?animation" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Video and Animation</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="M&A/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?music" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Music and Audio</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="B&I/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?money" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Business and Investment</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="CS/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?consult" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Consulting Service</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="M&P/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?medicine" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Medical and Pharma</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="AH/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?architect" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Architect Designs</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="LI/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?exercising" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Lifestyle</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="AUD/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?tax" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Audit and Taxation</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="QA/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?quality" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Quality Assurance</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="ENG/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?engineer" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Engineering Consultancy</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="OM/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?management" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Organization Management</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="RP/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?repairing" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Repair and Technical Support</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 user-card">
+			<a href="E&T/">
+				<div class="card bg-dark text-white">
+					<img class="card-img" src="https://source.unsplash.com/600x300/?student" alt="Card image">
+					<div class="card-img-overlay">
+						<h2 class="card-title">Education and Teaching</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
+<!-- {% for cat_key, cat_val in categories %}
+<div>
+  <a href="{% url 'category-details' cat_key %}">{{ cat_val }}</a>
+</div>
+{% endfor %} -->
 {% endblock %}

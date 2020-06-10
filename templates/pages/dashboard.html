@@ -75,18 +75,14 @@
               <h5 class="page-title">Jobs given to you:</h5>
               <table class="table table-hover">
                 <tbody style="text-align: center;">
-                  {% if user.profile.available_for_hire %}
-                    {% if outgoings %}
-                      {% for item in incomings %}
-                        <tr>
-                          <td><a href="{% url 'public_profile' item.id %}">{{ item.username }}</a></td>
-                        </tr>
-                      {% endfor %}
-                    {% else %}
-                      <td class="text-muted">No current outgoing transactions.</td>
-                    {% endif %}
+                  {% if outgoings %}
+                    {% for item in outgoings %}
+                      <tr>
+                        <td><a href="{% url 'public_profile' item.hirer.id %}">{{ item.hirer.username }}</a></td>
+                      </tr>
+                    {% endfor %}
                   {% else %}
-                    <td class="text-muted">You are not working.</td>
+                    <td class="text-muted">No current outgoing transactions.</td>
                   {% endif %}
                 </tbody>
               </table>
@@ -95,5 +91,5 @@
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 {% endblock %}

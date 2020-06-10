@@ -42,7 +42,6 @@
                                               {% csrf_token %}
                                               {% if involved %}
                                                   <button class="btn btn-light btn-lg p-2" disabled> Hire </button>
-                                                  <br/><b class="text-danger">Currently Hired</b>
                                               {% else %}
                                                   <button class="btn btn-success btn-lg p-2"> Hire </button>
                                               {% endif %}
@@ -156,8 +155,8 @@
               <div class="media comment-box ">
                   <img src="http://placehold.it/55x55" alt="media object image">
                   <div class="media-body ml-3">
-                      <p><b>{{ comment.user.username}}</b></p>
-                      <p >{{ comment.body }}</p>
+                      <p><b>{{ comment.user.username}}</b> says,<br/>
+                      {{ comment.body }}</p>
                   </div>
               </div>
           <hr>

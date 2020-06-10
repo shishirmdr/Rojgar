@@ -1,14 +1,47 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+  <div class="container">
+    <h2 class="page-title">Jobs With Similar Categories</h2>
+  </div>
   {% if page_obj %}
-    {% for worker in page_obj %}
-      <div>
-        <a href="{% url 'public_profile' worker.user.id %}">{{ worker.user.username }}</a>
+    <div class="service">
+      <div class="container">
+        <div class="row">
+          {% for worker in page_obj %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card user-card">
+              <img src="https://m.media-amazon.com/images/S/aplus-media/vc/cab6b08a-dd8f-4534-b845-e33489e91240._CR75,0,300,300_PT0_SX300__.jpg" class="card-img-top user-card-image"/>
+              <div class="card-body">
+                <div class="user-description">
+                  <div class="user-header">
+                    <div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({% static 'images/default_profile_pic.png' %});background-color: grey;background-size: 2em 2em;"></div>
+                    <div style="padding-left: 1em;">
+                      <b>{{ worker.user.username }}</b></br>
+                      <span class="sml-text">{{ worker.user.profile.occupation }}</span>
+                    </div>
+                  </div>
+
+                  <p style="font-size: 15px;" class="card-text">{{ worker.user.profile.description }}</p>
+
+                </div>
+                <hr/>
+                <div>
+                  <a href="{% url 'public_profile' worker.user.id %}" class="btn btn-info">View Profile</a>
+                  <span class="sml-text">NRs.</span><b class="text-success" style="font-size: 20px;">{{ worker.user.profile.price }}</b>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% include "listings/pagination.html" %}
       </div>
-    {% endfor %}
-    {% include "listings/pagination.html" %}
+    </div>
+    
   {% else %}
-    <h1>None Found!</h1>
+    <h1 class="display-3 text-muted notfound">No Result Found!</h1>
   {% endif %}
+
 {% endblock %}

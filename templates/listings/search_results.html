@@ -35,12 +35,13 @@
                     </div>
                   </div>
 
-                  <p style="font-size: 15px;" class="card-text sml-text">{{ result.user.profile.description }}</p>
+                  <p style="font-size: 15px;" class="card-text">{{ result.user.profile.description }}</p>
                   <h5>NRs. {{ result.user.profile.price }}</h5>
                 </div>
                 <hr/>
                 <div>
                   <a href="{% url 'public_profile' result.user.id %}" class="btn btn-info">View Profile</a>
+                  <span class="sml-text">NRs.</span><b class="text-success" style="font-size: 20px;">{{ result.user.profile.price }}</b>
                 </div>
               </div>
             </div>

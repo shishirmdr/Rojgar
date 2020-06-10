@@ -51,18 +51,20 @@
 										{% endif %}
 									{% endif %}
 									{% if user.is_authenticated %}
-										<div style="margin-top: 20px;" class="favourite">
-											<form methd="POST" action="{% url 'add-favourite' profile.user.id %}">
-												{% csrf_token %}
-												<button type='submit' class='btn btn-light'>
-													{% if is_favourite %}
-														<i class="fas fa-heart"></i>
-													{% else %}
-														<i class="far fa-heart"></i>
-													{% endif %}
-												</button>
-											</form>
-										</div>
+                    {% if user.id != profile.user.id %}
+  										<div style="margin-top: 20px;" class="favourite">
+  											<form methd="POST" action="{% url 'add-favourite' profile.user.id %}">
+  												{% csrf_token %}
+  												<button type='submit' class='btn btn-light'>
+  													{% if is_favourite %}
+  														<i class="fas fa-heart"></i>
+  													{% else %}
+  														<i class="far fa-heart"></i>
+  													{% endif %}
+  												</button>
+  											</form>
+  										</div>
+                    {% endif %}
 									{% endif %}
 								</div>
 							</div>

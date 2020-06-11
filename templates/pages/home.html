@@ -71,10 +71,10 @@
 									<p style="font-size: 15px;" class="card-text">{{ item.description }}</p>
 									
 								</div>
-								<hr />
-								<div>
-								  <a href="{% url 'public_profile' item.user.id %}" class="btn btn-info">View Profile</a>
-								  <span class="sml-text">NRs.</span><b class="text-success" style="font-size: 20px;">{{ item.price }}</b>
+								<hr/>
+								<div class="clearfix">
+									<span class="sml-text">NRs.</span><b class="text-success" style="font-size: 20px;">{{ item.price }}</b>
+									<a href="{% url 'public_profile' item.user.id %}" class="btn btn-info float-right">View Profile</a>
 								</div>
 							</div>
 						</div>

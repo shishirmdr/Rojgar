@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 def home(request):
     categories = Profile._meta.get_field('category').choices
-    popular_tags = Profile.skills.most_common()[:10]
+    popular_tags = Profile.skills.most_common()[:5]
     recently_added = Profile.objects.filter(
         user__is_superuser=False,
         available_for_hire=True
@@ -60,10 +60,10 @@ class ProfileView(LoginRequiredMixin, View):
         })
 
     def post(self, request, *args, **kwargs):
-        user_change_form = self.user_change_form_class(request.POST,
+        user_change_form = self.user_change_form_class(request.POST, request.FILES,
                                                        instance=request.user)
         user_profile_form = self.user_profile_form_class(
-            request.POST, instance=request.user.profile
+            request.POST, request.FILES, instance=request.user.profile
         )
 
         if user_change_form.is_valid() and user_profile_form.is_valid():

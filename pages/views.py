@@ -96,11 +96,18 @@ class SearchResultsView(View):
         #                                   skills=search_item)
 
         search_items = request.GET.get('q').lower().replace(' ','').split(',')
+        price1 = request.GET.get('min')
+        price2 = request.GET.get('max')
+        if not price1:
+            price1=0
+        if not price2:
+            price2=1000
 
         user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
         queryset = user_excluded_queryset.filter(
             available_for_hire=True,
-            skills__name__in=search_items
+            skills__name__in=search_items,
+            price__range=(price1, price2)
         ).order_by('user__date_joined').distinct()
 
         paginator = Paginator(queryset, 3)

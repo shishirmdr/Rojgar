@@ -7,13 +7,13 @@
   <form method="GET" action="/search" style="padding-bottom: 1em;">
     <div class="form-row">
       <div class="col-2 col-md-1 mb-2 d-flex align-items-center">
-        Price:
+        Price range:
       </div>
       <div class="col-2 col-md-2 mb-2">
         <input type="number" name="min" class="form-control form-control-lg" value="{% if request.GET.min %}{{ request.GET.min }}{% else %}0{% endif %}" />
       </div>
       <div class="col-2 col-md-2 mb-2">
-        <input type="number" name="max" class="form-control form-control-lg" value="{% if request.GET.max %}{{ request.GET.max }}{% else %}1000{% endif %}" />
+        <input type="number" name="max" class="form-control form-control-lg" value="{% if request.GET.max %}{{ request.GET.max }}{% else %}1000000{% endif %}" />
       </div>
       <div class="col-9 col-md-10 mb-2 mb-md-0">
         <input type="text" name="q" class="form-control form-control-lg" value="{{ request.GET.q }}"/>

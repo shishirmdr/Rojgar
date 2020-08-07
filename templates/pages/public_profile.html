@@ -112,26 +112,16 @@
 					{% if user.is_authenticated %}
 						{% if not already_commented %}
 							{% if user.id != profile.user.id %}
-								<div class="accordion" id="accordionExample">
-									<div class="card user-card">
-										<div class="card-header bg-white" id="headingOne">
-											<button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-												Post Comment
-											</button>
-										</div>
-
-										<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-											<div class="card-body">
-												<form method="POST" action="{% url 'comment-view' profile.user.id %}">
-													{% csrf_token %}
-													<div class="form-group">
-														<label for="id_body"><b>Comment Box</b></label>
-														<textarea name="body" class="form-control" id="id_body"></textarea>
-													</div>
-													<button type="submit" class="btn btn-success">Post</button>
-												</form>
+								<div class="card user-card">
+									<div class="card-body">
+										<form method="POST" action="{% url 'comment-view' profile.user.id %}">
+											{% csrf_token %}
+											<div class="form-group">
+												<label for="id_body"><b>Write your comment here </b></label>
+												<textarea name="body" class="form-control" id="id_body"></textarea>
 											</div>
-										</div>
+											<button type="submit" class="btn btn-success">Post</button>
+										</form>
 									</div>
 								</div>
 							{% endif %}
@@ -142,7 +132,7 @@
 						<div class="card user-card">
 							<div class="card-header bg-white" id="headingOne">
 								<button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-									All Comments
+									View All Comments ({{ comment_count }})
 								</button>
 							</div>
 

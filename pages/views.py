@@ -101,7 +101,7 @@ class SearchResultsView(View):
         if not price1:
             price1=0
         if not price2:
-            price2=1000
+            price2=1000000
 
         user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
         queryset = user_excluded_queryset.filter(
@@ -137,10 +137,17 @@ class TagDetailsView(View):
     template_name = 'listings/tag_details.html'
 
     def get(self, request, slug, *args, **kwargs):
+        price1 = request.GET.get('min')
+        price2 = request.GET.get('max')
+        if not price1:
+            price1=0
+        if not price2:
+            price2=1000000
         tag = get_object_or_404(Tag, slug=slug)
         user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
         queryset = user_excluded_queryset.filter(available_for_hire=True,
-                                          skills=tag)
+                                            price__range=(price1, price2),
+                                            skills=tag)
 
         paginator = Paginator(queryset, 10)
         page_no = request.GET.get('page')
@@ -157,6 +164,7 @@ class PublicProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         user = get_object_or_404(User, id=pk)
         comments = user.profile.comment_set.all()
+        comment_count = comments.count()
         form = self.comment_form_class()
         profile = user.profile
 
@@ -187,6 +195,7 @@ class PublicProfileView(View):
             'involved': involved,
             'form': form,
             'comments': comments,
+            'comment_count': comment_count,
             'is_favourite': is_favourite,
             'already_commented': already_commented,
         })
@@ -259,9 +268,17 @@ class CategoryDetailsView(View):
     template_name = 'listings/category_details.html'
 
     def get(self, request, cat):
+        price1 = request.GET.get('min')
+        price2 = request.GET.get('max')
+        if not price1:
+            price1=0
+        if not price2:
+            price2=1000000
+
         queryset = Profile.objects.exclude(user__id=request.user.id)
         queryset = queryset.filter(
             category=cat,
+            price__range=(price1, price2),
             available_for_hire=True
         )
 

@@ -103,10 +103,60 @@
 										<a href="{{ profile.website }}"> {{ profile.website }}</a> {% else %}
 										<i class="fas fa-times-circle" style="color:red; width=30px;"></i>
 									{% endif %}
-								</p>
-							</li>
+								</div>
+								<div class="col-6 py-3">
+									<span class="sml-text">Member Since :</span>
+									<b>{{ profile.user.date_joined.date }}</b>
+								</div>
+								<div class="col-6">
+									<span class="sml-text">Price : </span>
+									<span style="font-size: 30px;">NRs. <span class="text-success">{{ profile.price}}</span></span>
+								</div>
+							</div>
+							<hr/>
+							<span class="sml-text">Tags :</span>
+							{% for skill in profile.skills.all %}
+								<a href="{% url 'tag-details' skill.slug %}" class="btn btn-info btn-sm" style="border-radius: 2em;min-width: 5em;"> <span class="tag-title">{{ skill }}</span> </a>
+							{% endfor %}
+							<hr/>
+							{% if profile.description %}
+								{{profile.description}}
+							{% endif %}
+						</div>
+					</div>
 
+					{% if user.is_authenticated %}
+						{% if not already_commented %}
+							{% if user.id != profile.user.id %}
+								<div class="card user-card">
+									<div class="card-body">
+										<form method="POST" action="{% url 'comment-view' profile.user.id %}">
+											{% csrf_token %}
+											<div class="form-group">
+												<label for="id_body"><b>Write your comment here </b></label>
+												<textarea name="body" class="form-control" id="id_body"></textarea>
+											</div>
+											<button type="submit" class="btn btn-success">Post</button>
+										</form>
+									</div>
+								</div>
+							{% endif %}
+						{% endif %}
+					{% else %}
+						<div class="card user-card">
+							<div class="card-body">
+								<a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to <b>comment</b> here...
+							</div>
+						</div>
+					{% endif %}
 
+					<div class="accordion" id="accordionExample">
+						<div class="card user-card">
+							<div class="card-header bg-white" id="headingOne">
+								<button class="btn btn-link btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+									View All Comments ({{ comment_count }})
+								</button>
+							</div>
 							<!-- <li>
 								<p>
 									<b>Available for hire : </b>

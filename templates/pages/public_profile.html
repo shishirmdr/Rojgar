@@ -126,6 +126,12 @@
 								</div>
 							{% endif %}
 						{% endif %}
+					{% else %}
+						<div class="card user-card">
+							<div class="card-body">
+								<a href="{% url 'signup' %}">Sign Up</a> or <a href="{% url 'login' %}">Log In</a> to <b>comment</b> here...
+							</div>
+						</div>
 					{% endif %}
 
 					<div class="accordion" id="accordionExample">

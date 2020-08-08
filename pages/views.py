@@ -10,10 +10,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 def home(request):
     categories = Profile._meta.get_field('category').choices
-    popular_tags = Profile.skills.most_common()[:10]
-
-    user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
-    recently_added = user_excluded_queryset.filter(
+    popular_tags = Profile.skills.most_common()[:5]
+    recently_added = Profile.objects.filter(
         user__is_superuser=False,
         available_for_hire=True
     ).order_by('-joined_at')[:8]
@@ -62,10 +60,10 @@ class ProfileView(LoginRequiredMixin, View):
         })
 
     def post(self, request, *args, **kwargs):
-        user_change_form = self.user_change_form_class(request.POST,
+        user_change_form = self.user_change_form_class(request.POST, request.FILES,
                                                        instance=request.user)
         user_profile_form = self.user_profile_form_class(
-            request.POST, instance=request.user.profile
+            request.POST, request.FILES, instance=request.user.profile
         )
 
         if user_change_form.is_valid() and user_profile_form.is_valid():
@@ -98,18 +96,11 @@ class SearchResultsView(View):
         #                                   skills=search_item)
 
         search_items = request.GET.get('q').lower().replace(' ','').split(',')
-        price1 = request.GET.get('min')
-        price2 = request.GET.get('max')
-        if not price1:
-            price1=0
-        if not price2:
-            price2=1000
 
         user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
         queryset = user_excluded_queryset.filter(
             available_for_hire=True,
-            skills__name__in=search_items,
-            price__range=(price1, price2)
+            skills__name__in=search_items
         ).order_by('user__date_joined').distinct()
 
         paginator = Paginator(queryset, 3)

@@ -12,11 +12,19 @@
           {% for worker in page_obj %}
             <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="card user-card">
-              <img class="card-img-top user-card-image" src="https://source.unsplash.com/400x300/?laptop" alt="Card image">
+              {% if worker.cover_image %}
+              <img class="card-img-top user-card-image" src={{ worker.cover_image.url }} alt="Card image">
+              {% else %}
+              <img class="card-img-top user-card-image" src="{% static 'images/default_cover_pic.jpg' %}">
+              {% endif %}
               <div class="card-body">
                 <div class="user-description">
                   <div class="user-header">
+                    {% if worker.image %}
+                    <div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({{ worker.image.url }});background-color: grey;background-size: 2em 2em;"></div>
+                    {% else %}
                     <div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({% static 'images/default_profile_pic.png' %});background-color: grey;background-size: 2em 2em;"></div>
+                    {% endif %}
                     <div style="padding-left: 1em;">
                       <b>{{ worker.user.username }}</b></br>
                       <span class="sml-text">{{ worker.user.profile.occupation }}</span>
@@ -39,7 +47,7 @@
         {% include "listings/pagination.html" %}
       </div>
     </div>
-    
+
   {% else %}
     <h1 class="display-3 text-muted notfound">No Result Found!</h1>
   {% endif %}

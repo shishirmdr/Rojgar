@@ -7,8 +7,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     available_for_hire = models.BooleanField(default=False)
     occupation = models.CharField(max_length=50, blank=True, default='')
-    image = models.ImageField(upload_to="profile_pictures/%Y%m%d", default="", null=True)
-    cover_image = models.ImageField(upload_to="cover_images/%Y%m%d", default="", null=True)
+    image = models.ImageField(upload_to="profile_pictures/%Y%m%d", default="", null=True, blank=True)
+    cover_image = models.ImageField(upload_to="cover_images/%Y%m%d", default="", null=True, blank=True)
 
     category_choices = (
         ("P&T","Programming & Technology"),

@@ -13,6 +13,8 @@
                 <div class="dashuserimg">
                   {% if user.profile.image %}
                   <img src={{ user.profile.image.url }} height="100%" width="100%">
+                  {% else %}
+                  <img src="{% static 'images/default_profile_pic.png' %}" height="100%" width="100%" />
                   {% endif %}
                 </div>
               </div>

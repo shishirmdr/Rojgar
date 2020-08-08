@@ -20,6 +20,7 @@
             <img src= {{user.profile.image.url}} style="width: 1.5em; height: 1.5em;border-radius: 2em;" />
             {{ user.username }}
             {% else %}
+            <img src={% static 'images/default_profile_pic.png' %} style="width: 1.5em; height: 1.5em; border-radius: 2em;" />
             {{ user.username }}
             {% endif %}
           </a>

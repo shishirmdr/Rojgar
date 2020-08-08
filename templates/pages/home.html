@@ -15,7 +15,7 @@
 						<div class="form-row">
 							<div class="col-12 col-md-9 mb-2 mb-md-0">
 								<input type="text" name="q" class="form-control form-control-lg"
-									   placeholder="Search for a service...">
+									   placeholder="Search for a service or any expertise...">
 							</div>
 							<div class="col-12 col-md-3">
 								<button type="submit" class="btn btn-block btn-lg btn-info">Search</button>
@@ -54,11 +54,13 @@
 				{% for item in recently_added %}
 					<div class="col-sm-6 col-md-4 col-lg-3">
 						<div class="card user-card">
-							<img class="card-img-top user-card-image" src="https://source.unsplash.com/400x300/?laptop" alt="Card image">
+							{% if item.cover_image %}
+							<img class="card-img-top user-card-image" src={{ item.cover_image.url }} alt="Card image">
+							{% endif %}
 							<div class="card-body">
 								<div class="user-description">
 									<div class="user-header">
-										<div style="width: 2em; height: 2em;border-radius: 2em;background-image: url({% static 'images/default_profile_pic.png' %});background-color: grey;background-size: 2em 2em;">
+										<div style="width: 2em; height: 2em;border-radius: 2em; background-image: url({{ item.image.url }});background-color: grey;background-size: 2em 2em;">
 										</div>
 										<div style="padding-left: 1em;">
 											<b>{{ item.user.username }}</b>
@@ -69,12 +71,12 @@
 										</div>
 									</div>
 									<p style="font-size: 15px;" class="card-text">{{ item.description }}</p>
-									
+
 								</div>
-								<hr/>
-								<div class="clearfix">
-									<span class="sml-text">NRs.</span><b class="text-success" style="font-size: 20px;">{{ item.price }}</b>
-									<a href="{% url 'public_profile' item.user.id %}" class="btn btn-info float-right">View Profile</a>
+								<hr />
+								<div>
+								  <a href="{% url 'public_profile' item.user.id %}" class="btn btn-info">View Profile</a>
+								  <span class="sml-text">NRs.</span><b class="text-success" style="font-size: 20px;">{{ item.price }}</b>
 								</div>
 							</div>
 						</div>
@@ -173,7 +175,7 @@
 						</div>
 					</a>
 				</div>
-				
+
 			</div>
 		</div>
 		<!--our services section-->
@@ -234,13 +236,13 @@
 				</div>
 			</div>
 		</section>
-		
+
 	</div>
 
 	<!-- <h1>Categories</h1>
 	{% for cat_id, cat_val in categories %}
 		<a href="{% url 'category-details' cat_id %}">{{ cat_val }}</a>
-	{% endfor %} 
+	{% endfor %}
 	<h1>Popular Tags</h1>
 	{% for tag in popular_tags %}
 		<a href="{% url 'tag-details' tag.slug %}">{{ tag }} </a>

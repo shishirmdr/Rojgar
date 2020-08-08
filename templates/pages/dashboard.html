@@ -11,7 +11,9 @@
             <div class="card-body" style="height: 17em;">
               <div class="dashboardmain">
                 <div class="dashuserimg">
-                  <img src="{% static 'images/default_profile_pic.png' %}" height="100%" width="100%" />
+                  {% if user.profile.image %}
+                  <img src={{ user.profile.image.url }} height="100%" width="100%">
+                  {% endif %}
                 </div>
               </div>
               <center><a style="margin-bottom: 2em;margin-top: 1em;" href="{% url 'public_profile' user.id %}" class="btn btn-info">View Public Profile</a></center>

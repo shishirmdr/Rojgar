@@ -11,7 +11,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 def home(request):
     categories = Profile._meta.get_field('category').choices
     popular_tags = Profile.skills.most_common()[:5]
-    recently_added = Profile.objects.filter(
+
+    # exclude the logged in user in search results
+    user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
+    recently_added = user_excluded_queryset.filter(
         user__is_superuser=False,
         available_for_hire=True
     ).order_by('-joined_at')[:8]
@@ -106,7 +109,8 @@ class SearchResultsView(View):
         user_excluded_queryset = Profile.objects.exclude(user__id=request.user.id)
         queryset = user_excluded_queryset.filter(
             available_for_hire=True,
-            skills__name__in=search_items
+            skills__name__in=search_items,
+            price__range=(price1, price2),
         ).order_by('user__date_joined').distinct()
 
         paginator = Paginator(queryset, 3)

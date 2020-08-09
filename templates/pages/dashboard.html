@@ -35,7 +35,7 @@
                 {% if user.profile.available_for_hire %}
                   <span class="text-info">Active as Rojgar Worker</span>
                 {% else %}
-                  <span class="text-danger">Inctive as Rojgar Worker</span><br/><span class="sml-text">Update your profile to open up yourself to the world!</span>
+                  <span class="text-danger">Inactive as Rojgar Worker</span><br/><span class="sml-text">Update your profile to open up yourself to the world!</span>
                 {% endif %}
               </p>
               <form action="{% url 'logout' %}" method="POST">

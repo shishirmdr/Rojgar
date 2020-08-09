@@ -2,105 +2,93 @@
 {% load static %}
 
 {% block content %}
-	<div class="container p-5">
-		<div class="card">
-			<div class="card-header"> <h4>{{ profile.user.username }}'s Profile</h4></div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-5 col-12 col-sm-6 col-xl-4">
-						{% if profile.image %}
-						<img src={{ profile.image.url }} height="75%" width="100%">
-						{% else %}
-						<img src="{% static 'images/default_profile_pic.png' %} " height="65%" width="90%">
-						{% endif %}
-					</div>
-					<div class="col-lg-9 col-12 col-sm-6 col-xl-8">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<h2 style="text-transform: capitalize;">{{ profile.user.username }}</h2>
-									<p>
-										<span class="sml-text">Occupation :</span>
-											{% if profile.occupation %}
-												<b>{{ profile.occupation }}</b>
-											{% else %}
-												<i class="fas fa-times-circle" style="color:red; width=30px;"></i>
-											{% endif %}
-										<p>
-											{% if profile.description %}
-												{{profile.description}}
-											{% endif %}
-										</p>
-<!--                                         <p>
-											{% if profile.category %}
-												{{profile.category}}
-											{% endif %}
-										</p> -->
-									</p>
-								</div>
-								<div class="col-lg-9 col-12 col-sm-6 col-xl-5 m-3">
-									{% if profile.available_for_hire %}
-										{% if user.id != profile.user.id %}
-											<div><h3>
-													NRs. {{ profile.price}}</h3>
-											</div>
-											<form action="{% url 'user-action' profile.user.id 'hire' %}" method="POST">
-												{% csrf_token %}
-												{% if involved %}
-													<button class="btn btn-light btn-lg p-2" disabled> Hire </button>
-												{% else %}
-													<button class="btn btn-success btn-lg p-2"> Hire </button>
-												{% endif %}
-											</form>
-										{% endif %}
-									{% endif %}
-									{% if user.is_authenticated %}
-                    {% if user.id != profile.user.id %}
-  										<div style="margin-top: 20px;" class="favourite">
-  											<form methd="POST" action="{% url 'add-favourite' profile.user.id %}">
-  												{% csrf_token %}
-  												<button type='submit' class='btn btn-light'>
-  													{% if is_favourite %}
-  														<i class="fas fa-heart"></i>
-  													{% else %}
-  														<i class="far fa-heart"></i>
-  													{% endif %}
-  												</button>
-  											</form>
-  										</div>
-                    {% endif %}
+	<div class="service pb-4" style="min-height: 100vh;">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-4">
+					<div class="card user-card">
+						<div class="card-body">
+							<div class="dashboardmain">
+								<div class="dashuserimg">
+									{% if profile.image %}
+										<img src={{ profile.image.url }} height="100%" width="100%" style="object-fit: cover;object-position: center center;">
+									{% else %}
+										<img src="{% static 'images/default_profile_pic.png' %} " height="100%" width="100%">
 									{% endif %}
 								</div>
 							</div>
+							<div style="text-align: center;font-size: 50px;">{{ profile.user.username }}</div>
+							<div class="clearfix pt-3">
+								{% if profile.available_for_hire %}
+									{% if user.id != profile.user.id %}
+										<div class="float-left">
+											<form action="{% url 'user-action' profile.user.id 'hire' %}" method="POST">
+												{% csrf_token %}
+												{% if involved %}
+													<button class="btn btn-light px-2" disabled> Hire </button>
+												{% else %}
+													<button class="btn btn-success px-4"> Hire </button>
+												{% endif %}
+											</form>
+										</div>
+									{% endif %}
+								{% endif %}
+								{% if user.is_authenticated %}
+									{% if user.id != profile.user.id %}
+										<div class="favourite float-right">
+											<form methd="POST" action="{% url 'add-favourite' profile.user.id %}">
+												{% csrf_token %}
+												<button type='submit' class='btn btn-light'>
+													{% if is_favourite %}
+														<i class="fas fa-heart" style="color: red;"></i>
+													{% else %}
+														<i class="far fa-heart"></i>
+													{% endif %}
+												</button>
+											</form>
+										</div>
+									{% endif %}
+								{% endif %}
+							</div>
 						</div>
-						<hr>
-						<ul class="container details" style="list-style-type:none;">
-							<li>
-								<p>
-									<i class="fas fa-envelope" style="width:30px; color:#48b4e0"></i>
+					</div>
+				</div>
+				<div class="col-12 col-md-8">
+					<div class="card user-card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-6 py-3">
+									<span class="sml-text">Occupation :</span>
+									{% if profile.occupation %}
+										<b>{{ profile.occupation }}</b>
+									{% else %}
+										<i class="fas fa-times-circle" style="color:red; width=30px;"></i>
+									{% endif %}
+								</div>
+								<div class="col-6 py-3">
+									<!-- <i class="fas fa-envelope" style="width:30px; color:#48b4e0"></i> -->
+									<span class="sml-text">Email :</span>
 									{% if profile.user.email %}
-										{{ profile.user.email }}
+										<b>{{ profile.user.email }}</b>
 									{% else %}
 										<i class="fas fa-times-circle" style="color:red; width=30px;"></i>
 									{% endif %}
-								</p>
-							</li>
-							<li>
-								<p>
-									<i class="fas fa-user-graduate" style="width:30px; color: #48b4e0"></i>
+								</div>
+								<div class="col-6 py-3">
+									<!-- <i class="fas fa-user-graduate" style="width:30px; color: #48b4e0"></i> -->
+									<span class="sml-text">Education :</span>
 									{% if profile.education %}
-										{{ profile.education }}
+										<b>{{ profile.education }}</b>
 									{% else %}
 										<i class="fas fa-times-circle" style="color:red; width=30px;"></i>
 									{% endif %}
-								</p>
-							</li>
-							<li>
-
-								<p>
-									<i class="fas fa-globe" style="width:30px; color:#48b4e0"></i>
+								</div>
+								<div class="col-6 py-3">
+									<!-- <i class="fas fa-globe" style="width:30px; color:#48b4e0"></i> -->
+									<span class="sml-text">Webpage :</span>
 									{% if profile.website %}
-										<a href="{{ profile.website }}"> {{ profile.website }}</a> {% else %}
+										<a href="{{ profile.website }}"> {{ profile.website }}</a>
+									{% else %}
 										<i class="fas fa-times-circle" style="color:red; width=30px;"></i>
 									{% endif %}
 								</div>
@@ -157,82 +145,31 @@
 									View All Comments ({{ comment_count }})
 								</button>
 							</div>
-							<!-- <li>
-								<p>
-									<b>Available for hire : </b>
-									{% if profile.available_for_hire %}
-										<i class="fas fa-check" style="color:green"></i>
-									{% else %}
-										<i class="fas fa-times" style="color:red"></i>
-									{% endif%}
-								</p>
-							</li> -->
-						</ul>
-						<hr>
-						<div class="col-md-10 col-6 tital">
-							<p>
-								<span class="sml-text">Member Since: </span>
-								<b>{{ profile.user.date_joined.date }}</b>
-							</p>
-							{% if profile.skills %}
-								<p>
-									<span class="sml-text">Tags : </span>
-									{% for skill in profile.skills.all %}
-										 <a href="{% url 'tag-details' skill.slug %}" class="btn btn-info btn-sm" style="border-radius: 2em;min-width: 5em;"> <span class="tag-title">{{ skill }}</span> </a>
+
+							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+								<div class="card-body">
+									{% for comment in comments %}
+										<div class="media">
+											<img src="{% static 'images/default_profile_pic.png' %}" class="mr-3 mt-2 rounded-circle" alt="img" width="40px">
+											<div class="media-body">
+												<div class="mt-0"><b>{{ comment.user.username}}</b> says,</div>
+												{{ comment.body }}
+											</div>
+										</div>
+										<hr/>
+									{% empty %}
+										<section id="comment">
+											<div class="media">
+												<p>No comments yet.</p>
+											</div>
+										</section>
 									{% endfor %}
-								</p>
-							{% endif %}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="container mt-4">
-		{% if user.is_authenticated %}
-			{% if not already_commented %}
-			{% if user.id != profile.user.id %}
-<!-- 				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-						aria-expanded="false" aria-controls="collapseExample">
-					Post Comment
-				</button>
-				<div class="collapse" id="collapseExample"> -->
-					<div>
-						<form method="POST" action="{% url 'comment-view' profile.user.id %}">
-							{% csrf_token %}
-							<div class="form-group mt-3">
-								<label for="id_body"><b>Comment Box</b></label>
-								<textarea name="body" class="form-control" id="id_body"></textarea>
-							</div>
-							<button type="submit" class="btn btn-success">Post</button>
-						</form>
-					</div>
-				</div>
-			{% endif %}
-			{% endif %}
-		{% endif %}
-		<h2>All Comments ({{ comments.count }}) </h2>
-		{% for comment in comments %}
-			<section id="comments mt-4">
-				<div class="media comment-box ">
-					{% if comment.user.profile.image %}
-					<img src={{ comment.user.profile.image.url }} alt="media object image" style="width: 50px; height: 50px;">
-					{% else %}
-					<img src="{% static 'images/default_profile_pic.png' %}" style="width: 50px; height: 50px;">
-					{% endif %}
-					<div class="media-body ml-3">
-						<p><b>{{ comment.user.username}}</b> says,<br/>
-						{{ comment.body }}</p>
-					</div>
-				</div>
-			<hr>
-			</section>
-		{% empty %}
-			<section id="comment mt-4">
-				<div class="media">
-					<p>No comments yet.</p>
-				</div>
-			</section>
-		{% endfor %}
 		</div>
 	</div>
 {% endblock %}

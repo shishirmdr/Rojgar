@@ -12,7 +12,7 @@
               <div class="dashboardmain">
                 <div class="dashuserimg">
                   {% if user.profile.image %}
-                  <img src={{ user.profile.image.url }} height="100%" width="100%">
+                  <img src={{ user.profile.image.url }} height="100%" width="100%" style="object-fit: cover;object-position: center center;">
                   {% else %}
                   <img src="{% static 'images/default_profile_pic.png' %}" height="100%" width="100%" />
                   {% endif %}

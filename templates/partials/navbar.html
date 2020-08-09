@@ -17,7 +17,7 @@
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {% if user.profile.image %}
-            <img src= {{user.profile.image.url}} style="width: 1.5em; height: 1.5em;border-radius: 2em;" />
+            <img src= {{user.profile.image.url}} style="width: 1.5em; height: 1.5em;border-radius: 2em;object-fit: cover;object-position: center center;" />
             {{ user.username }}
             {% else %}
             <img src={% static 'images/default_profile_pic.png' %} style="width: 1.5em; height: 1.5em; border-radius: 2em;" />

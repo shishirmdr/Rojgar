@@ -63,8 +63,7 @@
 								<div class="user-description">
 									<div class="user-header">
 										{% if item.image %}
-										<div style="width: 2em; height: 2em;border-radius: 2em; background-image: url({{ item.image.url }});background-color: grey;background-size: 2em 2em;">
-										</div>
+											<img src="{{ item.image.url }}" style="width: 2em; height: 2em;border-radius: 2em;object-fit: cover;object-position: center center">
 										{% else %}
 										<div style="width: 2em; height: 2em;border-radius: 2em; background-image: url({% static 'images/default_profile_pic.png' %}); background-color: grey;background-size: 2em 2em;">
 										</div>
@@ -81,9 +80,9 @@
 
 								</div>
 								<hr />
-								<div>
-								  <a href="{% url 'public_profile' item.user.id %}" class="btn btn-info">View Profile</a>
-								  <span class="sml-text">NRs.</span><b class="text-success" style="font-size: 20px;">{{ item.price }}</b>
+								<div class="clearfix"> 
+								  <span class="float-left sml-text">NRs. <b class="text-success" style="font-size: 18px;">{{ item.price }}</b></span>
+								  <a href="{% url 'public_profile' item.user.id %}" class="btn btn-info float-right">View Profile</a>
 								</div>
 							</div>
 						</div>

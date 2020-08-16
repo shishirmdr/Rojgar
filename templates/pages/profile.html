@@ -2,116 +2,108 @@
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container">
-    <div class="card mt-4">
-        <div class="card-header" >
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-5 p-0">
-                    <h2>Profile Page</h2>
-                </div>
+    
+    <h2 class="mt-5">Profile Page</h2>
+    <h5>Fill the data carefully as Employers are going to give job based on these data.</h5>
+    
+    <form method="post" action="{% url 'profile' %}" enctype="multipart/form-data" name="workprofile" onsubmit="return validate_for_available()" class="mt-5">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-4 form-group">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" class="form-control" id="id_username" value="{{user.username}}">
             </div>
-        </div>
-        <div class="card-body" >
-            <div class="row justify-content-left mt-4">
-                <div class="col-md-5 ml-5">
-          <form method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="id_username">Username</label>
-                            <input type="text" name="username" class="form-control" id="id_username" value="{{user.username}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="id_first_name">First name</label>
-                            <input type="text" name="first_name" class="form-control" id="id_first_name" value="{{user.first_name}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="id_last_name">Last name</label>
-                            <input type="text" name="last_name" class="form-control" id="id_last_name" value="{{user.last_name}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_occupation">Occupation</label>
-                            <input type="text" name="occupation" class="form-control" id="id_occupation" value="{{user.profile.occupation}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_category">Category</label>
-                            <select name="category" id="id_category" class="form-control">
-                <option value="P&T"> Programming & Technology</option>
-                <option value="G&D"> Graphics & Design</option>
-                <option value="DM"> Digital Marketing</option>
-                <option value="W&T"> Writing & Translation</option>
-                <option value="DE"> Data Entry</option>
-                <option value="V&M"> Video & Animation</option>
-                <option value="M&A"> Music & Audio</option>
-                <option value="B&I"> Business & Investment</option>
-                <option value="CS"> Consulting Service</option>
-                <option value="AH"> Architect Designs</option>
-                <option value="LI"> Lifestyle</option>
-                <option value="M&P"> Medical & Pharma</option>
-                <option value="AUD"> Audit & Taxation</option>
-                <option value="QA"> Quality Assurance</option>
-                <option value="ENG"> Engineering Consultancy</option>
-                <option value="OM"> Organization Management</option>
-                <option value="RP"> Repair & Technical Support</option>
-                <option value="E&T" selected> Education & Teaching</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_gender">Gender</label>
-                            <select name="gender" class="form-control" id="id_gender">
-                                <option value="M"> Male</option>
-                                <option value="F"> Female</option>
-                                <option value="O"> Others</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_image">Profile Picture</label>
-                            <input type="file" name="image" placeholder="Profile Picture" value="{{ user.profile.image }}" id="id_image" class="form-control"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_cover">Cover Image</label>
-                            <input type="file" name="cover_image" placeholder="Cover Image" value="{{ user.profile.cover_image }}" class="form-control"/>
-                            <small id="usernameHelp" class="form-text text-muted">Upload your cover images or your finished work snap</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_education">Education</label>
-                            <input type="text" name="education" class="form-control" id="id_education" value="{{user.profile.education}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="id_skills">Tags</label>
-                            <input type="text" name="skills" class="form-control" id="id_skills"
-                            value="{% for skill in user.profile.skills.all %}{{ skill }}, {% endfor %}"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_price">price</label>
-                            <input type="number" name="price" placeholder="enter amount in nepali rupees" class="form-control" id="id_price" value="{{ user.profile.price }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_description">Description</label>
-                            <textarea name="description" class="form-control" id="id_description">{{user.profile.description}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="id_website">Website</label>
-                            <input type="url" name="website" class="form-control" id="id_website" {% if user.profile.website %}value="{{user.profile.website}}"{% endif %}>
-                        </div>
-                        <div class="form-group">
-                            <p>Available for hire :
-                                <input class="p-3 " type="checkbox" name="available_for_hire" class="form-control"
-                                                                              id="id_available_for_hire"{% if user.profile.available_for_hire %}checked{% endif %} />
-                            </p>
-                        </div>
-                        <button type="submit" value="update" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
+            <div class="col-4 form-group">
+                <label for="id_first_name">First name</label>
+                <input type="text" name="first_name" class="form-control" id="id_first_name" value="{{user.first_name}}">
             </div>
+            <div class="col-4 form-group">
+                <label for="id_last_name">Last name</label>
+                <input type="text" name="last_name" class="form-control" id="id_last_name" value="{{user.last_name}}">
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="id_occupation">Occupation</label>
+                <input type="text" name="occupation" class="form-control" id="id_occupation" value="{{user.profile.occupation}}">
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="id_category">Category</label>
+                <select name="category" id="id_category" class="form-control">
+                    <option value="P&T" {% if user.profile.category == 'P&T' %}selected{% endif %}> Programming & Technology</option>
+                    <option value="G&D" {% if user.profile.category == 'G&D' %}selected{% endif %}> Graphics & Design</option>
+                    <option value="DM" {% if user.profile.category == 'DM' %}selected{% endif %}> Digital Marketing</option>
+                    <option value="W&T" {% if user.profile.category == 'W&T' %}selected{% endif %}> Writing & Translation</option>
+                    <option value="DE" {% if user.profile.category == 'DE' %}selected{% endif %}> Data Entry</option>
+                    <option value="V&M" {% if user.profile.category == 'V&M' %}selected{% endif %}> Video & Animation</option>
+                    <option value="M&A" {% if user.profile.category == 'M&A' %}selected{% endif %}> Music & Audio</option>
+                    <option value="B&I" {% if user.profile.category == 'B&I' %}selected{% endif %}> Business & Investment</option>
+                    <option value="CS" {% if user.profile.category == 'CS' %}selected{% endif %}> Consulting Service</option>
+                    <option value="AH" {% if user.profile.category == 'AH' %}selected{% endif %}> Architect Designs</option>
+                    <option value="LI" {% if user.profile.category == 'LI' %}selected{% endif %}> Lifestyle</option>
+                    <option value="M&P" {% if user.profile.category == 'M&P' %}selected{% endif %}> Medical & Pharma</option>
+                    <option value="AUD" {% if user.profile.category == 'AUD' %}selected{% endif %}> Audit & Taxation</option>
+                    <option value="QA" {% if user.profile.category == 'QA' %}selected{% endif %}> Quality Assurance</option>
+                    <option value="ENG" {% if user.profile.category == 'ENG' %}selected{% endif %}> Engineering Consultancy</option>
+                    <option value="OM" {% if user.profile.category == 'OM' %}selected{% endif %}> Organization Management</option>
+                    <option value="RP" {% if user.profile.category == 'RP' %}selected{% endif %}> Repair & Technical Support</option>
+                    <option value="E&T" {% if user.profile.category == 'E&T' %}selected{% endif %}> Education & Teaching</option>
+                </select>
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="id_gender">Gender</label>
+                <select name="gender" class="form-control" id="id_gender">
+                    <option value="M" {% if user.profile.gender == 'M' %}selected{% endif %}> Male</option>
+                    <option value="F" {% if user.profile.gender == 'F' %}selected{% endif %}> Female</option>
+                    <option value="O" {% if user.profile.gender == 'O' %}selected{% endif %}> Others</option>
+                </select>
+            </div>
+
+            <div class="col-9 form-group">
+                <label for="id_image">Profile Picture</label>
+                <input type="file" name="image" placeholder="Profile Picture" value="{{ user.profile.image }}" id="id_image" class="form-control" accept="image/*"/>
+            </div>
+
+            <div class="col-9 form-group">
+                <label for="id_cover">Cover Image</label>
+                <input type="file" name="cover_image" placeholder="Cover Image" id="id_cover_image" value="{{ user.profile.cover_image }}" class="form-control" accept="image/*"/>
+                <small id="usernameHelp" class="form-text text-muted">Upload your cover images or your finished work snap</small>
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="id_education">Education</label>
+                <input type="text" name="education" class="form-control" id="id_education" value="{{user.profile.education}}">
+            </div>
+            <div class="col-4 form-group">
+                <label for="id_skills">Tags</label>
+                <input type="text" name="skills" class="form-control" id="id_skills"
+                value="{% for skill in user.profile.skills.all %}{{ skill }}, {% endfor %}"/>
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="id_price">price</label>
+                <input type="number" name="price" placeholder="enter amount in nepali rupees" class="form-control" id="id_price" value="{{ user.profile.price }}">
+            </div>
+
+            <div class="col-12 form-group">
+                <label for="id_description">Description</label>
+                <textarea name="description" class="form-control" id="id_description">{{user.profile.description}}</textarea>
+            </div>
+            <div class="col-12 form-group">
+                <label for="id_website">Website</label>
+                <input type="url" name="website" class="form-control" id="id_website" {% if user.profile.website %}value="{{user.profile.website}}"{% endif %}>
+            </div>
+            <div class="col-12 form-group">
+                <p>Available for hire :
+                    <input class="p-3 " type="checkbox" name="available_for_hire" class="form-control"
+                                                                  id="id_available_for_hire"{% if user.profile.available_for_hire %}checked{% endif %} />
+                </p>
+            </div>
+            <h5 id="e_message" class="col-12"></h5>
+            <button type="submit" value="update" class="btn btn-primary">Update</button>
         </div>
-    </div>
+    </form>
 </div>
 
 {% else %}

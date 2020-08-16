@@ -26,7 +26,7 @@
           <div class="card user-card">
             <div class="card-body" style="height: 17em;">
               <p>
-                <span style="font-size: 30px;">{{ user.username }}</span>
+                <span style="font-size: 30px;">Welcome {{ user.username }}</span>
                 <a href="{% url 'profile' %}" class="btn btn-info btn-sm"><i class="fas fa-pen"></i>  Edit Profile</a>
                 <br/>{{ user.email }}
               </p>

@@ -9,25 +9,25 @@
     <form method="post" action="{% url 'profile' %}" enctype="multipart/form-data" name="workprofile" onsubmit="return validate_for_available()" class="mt-5">
         {% csrf_token %}
         <div class="row">
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
                 <label for="id_username">Username</label>
                 <input type="text" name="username" class="form-control" id="id_username" value="{{user.username}}">
             </div>
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
                 <label for="id_first_name">First name</label>
                 <input type="text" name="first_name" class="form-control" id="id_first_name" value="{{user.first_name}}">
             </div>
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
                 <label for="id_last_name">Last name</label>
                 <input type="text" name="last_name" class="form-control" id="id_last_name" value="{{user.last_name}}">
             </div>
 
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
                 <label for="id_occupation">Occupation</label>
                 <input type="text" name="occupation" class="form-control" id="id_occupation" value="{{user.profile.occupation}}">
             </div>
 
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
                 <label for="id_category">Category</label>
                 <select name="category" id="id_category" class="form-control">
                     <option value="P&T" {% if user.profile.category == 'P&T' %}selected{% endif %}> Programming & Technology</option>
@@ -51,7 +51,7 @@
                 </select>
             </div>
 
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
                 <label for="id_gender">Gender</label>
                 <select name="gender" class="form-control" id="id_gender">
                     <option value="M" {% if user.profile.gender == 'M' %}selected{% endif %}> Male</option>
@@ -60,28 +60,29 @@
                 </select>
             </div>
 
-            <div class="col-9 form-group">
+            <div class="col-sm-12 col-lg-9 form-group">
                 <label for="id_image">Profile Picture</label>
                 <input type="file" name="image" placeholder="Profile Picture" value="{{ user.profile.image }}" id="id_image" class="form-control" accept="image/*"/>
             </div>
 
-            <div class="col-9 form-group">
+            <div class="col-sm-12 col-lg-9 form-group">
                 <label for="id_cover">Cover Image</label>
                 <input type="file" name="cover_image" placeholder="Cover Image" id="id_cover_image" value="{{ user.profile.cover_image }}" class="form-control" accept="image/*"/>
                 <small id="usernameHelp" class="form-text text-muted">Upload your cover images or your finished work snap</small>
             </div>
 
-            <div class="col-4 form-group">
-                <label for="id_education">Education</label>
-                <input type="text" name="education" class="form-control" id="id_education" value="{{user.profile.education}}">
-            </div>
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-lg-4 form-group">
                 <label for="id_skills">Tags</label>
                 <input type="text" name="skills" class="form-control" id="id_skills"
                 value="{% for skill in user.profile.skills.all %}{{ skill }}, {% endfor %}"/>
             </div>
 
-            <div class="col-4 form-group">
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
+                <label for="id_education">Education</label>
+                <input type="text" name="education" class="form-control" id="id_education" value="{{user.profile.education}}">
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-4 form-group">
                 <label for="id_price">price</label>
                 <input type="number" name="price" placeholder="enter amount in nepali rupees" class="form-control" id="id_price" value="{{ user.profile.price }}">
             </div>

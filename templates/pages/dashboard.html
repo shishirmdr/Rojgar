@@ -3,97 +3,99 @@
 
 {% block content %}
 
-  <div class="service" style="padding-bottom: 2em;">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-4">
-          <div class="card user-card">
-            <div class="card-body" style="height: 17em;">
-              <div class="dashboardmain">
-                <div class="dashuserimg">
-                  {% if user.profile.image %}
-                  <img src={{ user.profile.image.url }} height="100%" width="100%" style="object-fit: cover;object-position: center center;">
-                  {% else %}
-                  <img src="{% static 'images/default_profile_pic.png' %}" height="100%" width="100%" />
-                  {% endif %}
-                </div>
-              </div>
-              <center><a style="margin-bottom: 2em;margin-top: 1em;" href="{% url 'public_profile' user.id %}" class="btn btn-info">View Public Profile</a></center>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-8">
-          <div class="card user-card">
-            <div class="card-body" style="height: 17em;">
-              <p>
-                <span style="font-size: 30px;">Welcome {{ user.username }}</span>
-                <a href="{% url 'profile' %}" class="btn btn-info btn-sm"><i class="fas fa-pen"></i>  Edit Profile</a>
-                <br/>{{ user.email }}
-              </p>
-              <p>
-                Status:
-                {% if user.profile.available_for_hire %}
-                  <span class="text-info">Active as Rojgar Worker</span>
-                {% else %}
-                  <span class="text-danger">Inactive as Rojgar Worker</span><br/><span class="sml-text">Update your profile to open up yourself to the world!</span>
-                {% endif %}
-              </p>
-              <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-sm">
-                  Logout <i class="fas fa-sign-out-alt"></i>
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="card user-card">
-            <div class="card-body">
-              <h5 class="page-title">Jobs given by you:</h5>
-              <table class="table table-hover">
-                <tbody style="text-align: center;">
-                  {% if incomings %}
-                    {% for item in incomings %}
-                      <tr>
-                        <td><a href="{% url 'public_profile' item.id %}">{{ item.username }}</a></td>
-                        <td>
-                          <form action="{% url 'user-action' item.id 'free' %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-warning text-white"> Free </button>
-                          </form>
-                        </td>
-                      </tr>
-                    {% endfor %}
-                  {% else %}
-                    <td class="text-muted">No current incoming transactions.</td>
-                  {% endif %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="card user-card">
-            <div class="card-body">
-              <h5 class="page-title">Jobs given to you:</h5>
-              <table class="table table-hover">
-                <tbody style="text-align: center;">
-                  {% if outgoings %}
-                    {% for item in outgoings %}
-                      <tr>
-                        <td><a href="{% url 'public_profile' item.hirer.id %}">{{ item.hirer.username }}</a></td>
-                      </tr>
-                    {% endfor %}
-                  {% else %}
-                    <td class="text-muted">No current outgoing transactions.</td>
-                  {% endif %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="service" style="padding-bottom: 2em;">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-4">
+					<div class="card user-card">
+						<div class="card-body" style="height: 17em;">
+							<div class="dashboardmain">
+								<div class="dashuserimg">
+									{% if user.profile.image %}
+									<img src={{ user.profile.image.url }} height="100%" width="100%" style="object-fit: cover;object-position: center center;">
+									{% else %}
+									<img src="{% static 'images/default_profile_pic.png' %}" height="100%" width="100%" />
+									{% endif %}
+								</div>
+							</div>
+							<center><a style="margin-bottom: 2em;margin-top: 1em;" href="{% url 'public_profile' user.id %}" class="btn btn-info">View Public Profile</a></center>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-8">
+					<div class="card user-card">
+						<div class="card-body" style="height: 17em;">
+							<p>
+								<span style="font-size: 30px;">Welcome {{ user.username }}</span>
+								<br/>{{ user.email }}
+							</p>
+							<p>
+								Status:
+								{% if user.profile.available_for_hire %}
+									<span class="text-info">Active as Rojgar Worker</span>
+								{% else %}
+									<span class="text-danger">Inactive as Rojgar Worker</span><br/><span class="sml-text">Update your profile to open up yourself to the world!</span>
+								{% endif %}
+							</p>
+							<div class="d-flex justify-content-start justify-content-between">
+								<a href="{% url 'profile' %}" class="btn btn-info btn-sm"><i class="fas fa-pen"></i>  Edit Profile</a>
+								<form action="{% url 'logout' %}" method="POST">
+									{% csrf_token %}
+									<button type="submit" class="btn btn-danger btn-sm">
+										Logout <i class="fas fa-sign-out-alt"></i>
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="card user-card">
+						<div class="card-body">
+							<h5 class="page-title">Jobs given by you:</h5>
+							<table class="table table-hover">
+								<tbody style="text-align: center;">
+									{% if incomings %}
+										{% for item in incomings %}
+											<tr>
+												<td><a href="{% url 'public_profile' item.id %}">{{ item.username }}</a></td>
+												<td>
+													<form action="{% url 'user-action' item.id 'free' %}" method="POST">
+														{% csrf_token %}
+														<button type="submit" class="btn btn-warning text-white"> Free </button>
+													</form>
+												</td>
+											</tr>
+										{% endfor %}
+									{% else %}
+										<td class="text-muted">No current incoming transactions.</td>
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="card user-card">
+						<div class="card-body">
+							<h5 class="page-title">Jobs given to you:</h5>
+							<table class="table table-hover">
+								<tbody style="text-align: center;">
+									{% if outgoings %}
+										{% for item in outgoings %}
+											<tr>
+												<td><a href="{% url 'public_profile' item.hirer.id %}">{{ item.hirer.username }}</a></td>
+											</tr>
+										{% endfor %}
+									{% else %}
+										<td class="text-muted">No current outgoing transactions.</td>
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

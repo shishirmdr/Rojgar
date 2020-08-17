@@ -37,7 +37,7 @@
 									<span class="text-danger">Inactive as Rojgar Worker</span><br/><span class="sml-text">Update your profile to open up yourself to the world!</span>
 								{% endif %}
 							</p>
-							<div class="d-flex justify-content-start justify-content-between">
+							<div class="d-flex justify-content-start justify-content-between mt-5">
 								<a href="{% url 'profile' %}" class="btn btn-info btn-sm"><i class="fas fa-pen"></i>  Edit Profile</a>
 								<form action="{% url 'logout' %}" method="POST">
 									{% csrf_token %}

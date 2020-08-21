@@ -54,6 +54,10 @@ let validate_for_available=()=>{
 			error.innerHTML = errormessage("Enter a small description about yourself.");
 			return false;
 		}
+		if (z.split(' ').length > 15){
+			error.innerHTML = errormessage("Make your description little short.");
+			return false;
+		}
 	}
 }
 
